@@ -1,19 +1,19 @@
 <script>
-  import { onMount } from "svelte";
-
-  export let dataFile = "./data/tea.json";
-  export let idName = "tea";
-  let idTitle = idName[0].toUpperCase() + idName.slice(1);
-  let sites = [];
-
-  onMount(async function() {
-    const response = await fetch(dataFile);
-    const json = await response.json();
-    sites = json;
-  });
+  export let sites = [];
 </script>
 
-<style type="text/scss">
+<aside id={sites.title}>
+  <h2>{sites.title}</h2>
+  <ul>
+    {#each sites.sites as site}
+      <li>
+        <a href={site.url} target="_blanks" rel="noopener">{site.name}</a>
+      </li>
+    {/each}
+  </ul>
+</aside>
+
+<style>
   h2 {
     display: block;
     font-size: 1.5em;
@@ -23,15 +23,22 @@
     margin-inline-end: 0px;
     font-weight: bold;
   }
+  a {
+    color: deepskyblue;
+    text-decoration: none;
+    display: block;
+    padding: 0.5em 0;
+  }
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  li {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+  }
 </style>
-
-<aside id={idName}>
-  <h2>{idTitle}</h2>
-  <ul>
-    {#each sites as site}
-      <li>
-        <a href={site.url} target="_blanks" rel="noopener">{site.name}</a>
-      </li>
-    {/each}
-  </ul>
-</aside>
