@@ -49,6 +49,13 @@ var app = (function () {
     function space() {
         return text(' ');
     }
+    function empty() {
+        return text('');
+    }
+    function listen(node, event, handler, options) {
+        node.addEventListener(event, handler, options);
+        return () => node.removeEventListener(event, handler, options);
+    }
     function attr(node, attribute, value) {
         if (value == null)
             node.removeAttribute(attribute);
@@ -290,6 +297,19 @@ var app = (function () {
         dispatch_dev("SvelteDOMRemove", { node });
         detach(node);
     }
+    function listen_dev(node, event, handler, options, has_prevent_default, has_stop_propagation) {
+        const modifiers = options === true ? ["capture"] : options ? Array.from(Object.keys(options)) : [];
+        if (has_prevent_default)
+            modifiers.push('preventDefault');
+        if (has_stop_propagation)
+            modifiers.push('stopPropagation');
+        dispatch_dev("SvelteDOMAddEventListener", { node, event, handler, modifiers });
+        const dispose = listen(node, event, handler, options);
+        return () => {
+            dispatch_dev("SvelteDOMRemoveEventListener", { node, event, handler, modifiers });
+            dispose();
+        };
+    }
     function attr_dev(node, attribute, value) {
         attr(node, attribute, value);
         if (value == null)
@@ -329,7 +349,73 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (8:4) {#each sites.sites as site}
+    // (8:4) {#if sites && sites.sites}
+    function create_if_block$1(ctx) {
+    	let each_1_anchor;
+    	let each_value = /*sites*/ ctx[0].sites;
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			each_1_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(target, anchor);
+    			}
+
+    			insert_dev(target, each_1_anchor, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*sites*/ 1) {
+    				each_value = /*sites*/ ctx[0].sites;
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context$1(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block$1(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value.length;
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			destroy_each(each_blocks, detaching);
+    			if (detaching) detach_dev(each_1_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$1.name,
+    		type: "if",
+    		source: "(8:4) {#if sites && sites.sites}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (9:6) {#each sites.sites as site}
     function create_each_block$1(ctx) {
     	let li;
     	let a;
@@ -348,9 +434,9 @@ var app = (function () {
     			attr_dev(a, "target", "_blanks");
     			attr_dev(a, "rel", "noopener");
     			attr_dev(a, "class", "svelte-10lwfox");
-    			add_location(a, file$1, 9, 8, 153);
+    			add_location(a, file$1, 10, 10, 190);
     			attr_dev(li, "class", "svelte-10lwfox");
-    			add_location(li, file$1, 8, 6, 140);
+    			add_location(li, file$1, 9, 8, 175);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -374,7 +460,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(8:4) {#each sites.sites as site}",
+    		source: "(9:6) {#each sites.sites as site}",
     		ctx
     	});
 
@@ -389,12 +475,7 @@ var app = (function () {
     	let t1;
     	let ul;
     	let aside_id_value;
-    	let each_value = /*sites*/ ctx[0].sites;
-    	let each_blocks = [];
-
-    	for (let i = 0; i < each_value.length; i += 1) {
-    		each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
-    	}
+    	let if_block = /*sites*/ ctx[0] && /*sites*/ ctx[0].sites && create_if_block$1(ctx);
 
     	const block = {
     		c: function create() {
@@ -403,11 +484,7 @@ var app = (function () {
     			t0 = text(t0_value);
     			t1 = space();
     			ul = element("ul");
-
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].c();
-    			}
-
+    			if (if_block) if_block.c();
     			attr_dev(h2, "class", "svelte-10lwfox");
     			add_location(h2, file$1, 5, 2, 72);
     			attr_dev(ul, "class", "svelte-10lwfox");
@@ -424,35 +501,22 @@ var app = (function () {
     			append_dev(h2, t0);
     			append_dev(aside, t1);
     			append_dev(aside, ul);
-
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(ul, null);
-    			}
+    			if (if_block) if_block.m(ul, null);
     		},
     		p: function update(ctx, [dirty]) {
     			if (dirty & /*sites*/ 1 && t0_value !== (t0_value = /*sites*/ ctx[0].title + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty & /*sites*/ 1) {
-    				each_value = /*sites*/ ctx[0].sites;
-    				let i;
-
-    				for (i = 0; i < each_value.length; i += 1) {
-    					const child_ctx = get_each_context$1(ctx, each_value, i);
-
-    					if (each_blocks[i]) {
-    						each_blocks[i].p(child_ctx, dirty);
-    					} else {
-    						each_blocks[i] = create_each_block$1(child_ctx);
-    						each_blocks[i].c();
-    						each_blocks[i].m(ul, null);
-    					}
+    			if (/*sites*/ ctx[0] && /*sites*/ ctx[0].sites) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+    				} else {
+    					if_block = create_if_block$1(ctx);
+    					if_block.c();
+    					if_block.m(ul, null);
     				}
-
-    				for (; i < each_blocks.length; i += 1) {
-    					each_blocks[i].d(1);
-    				}
-
-    				each_blocks.length = each_value.length;
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
     			}
 
     			if (dirty & /*sites*/ 1 && aside_id_value !== (aside_id_value = /*sites*/ ctx[0].title)) {
@@ -463,7 +527,7 @@ var app = (function () {
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(aside);
-    			destroy_each(each_blocks, detaching);
+    			if (if_block) if_block.d();
     		}
     	};
 
@@ -523,71 +587,37 @@ var app = (function () {
     	}
     }
 
+    const getFromLocalStorage = (localStorageName) => {
+      const localStorageItem = localStorage.getItem(localStorageName);
+      if (localStorageItem) {
+        return JSON.parse(localStorageItem);
+      }
+      return;
+    };
+
+    const exportFileToLocalStorage = (event, localStorageLocation) => {
+      const file = event.srcElement.files[0];
+      const reader = new FileReader();
+      reader.addEventListener("load", (event) => {
+        const newMenus = event.target.result;
+        localStorage.removeItem(localStorageLocation);
+        localStorage.setItem(localStorageLocation, newMenus);
+      });
+      reader.readAsText(file);
+    };
+
     /* src/App.svelte generated by Svelte v3.16.5 */
     const file = "src/App.svelte";
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[2] = list[i];
+    	child_ctx[3] = list[i];
     	return child_ctx;
     }
 
-    // (11:4) {#each menus as menu}
-    function create_each_block(ctx) {
-    	let current;
-
-    	const fetch = new Fetch({
-    			props: { sites: /*menu*/ ctx[2] },
-    			$$inline: true
-    		});
-
-    	const block = {
-    		c: function create() {
-    			create_component(fetch.$$.fragment);
-    		},
-    		m: function mount(target, anchor) {
-    			mount_component(fetch, target, anchor);
-    			current = true;
-    		},
-    		p: noop,
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(fetch.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(fetch.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			destroy_component(fetch, detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_each_block.name,
-    		type: "each",
-    		source: "(11:4) {#each menus as menu}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    function create_fragment(ctx) {
-    	let main;
-    	let div;
-    	let t0;
-    	let nav;
-    	let button;
-    	let t2;
-    	let footer;
-    	let script0;
-    	let script0_src_value;
-    	let t3;
-    	let script1;
-    	let script1_src_value;
+    // (18:4) {#if menus}
+    function create_if_block(ctx) {
+    	let each_1_anchor;
     	let current;
     	let each_value = /*menus*/ ctx[0];
     	let each_blocks = [];
@@ -602,59 +632,21 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			main = element("main");
-    			div = element("div");
-
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			t0 = space();
-    			nav = element("nav");
-    			button = element("button");
-    			button.textContent = "Clear";
-    			t2 = space();
-    			footer = element("footer");
-    			script0 = element("script");
-    			t3 = space();
-    			script1 = element("script");
-    			attr_dev(div, "class", "flex-div__content svelte-ohhhqo");
-    			add_location(div, file, 9, 2, 210);
-    			attr_dev(main, "class", "flex-div svelte-ohhhqo");
-    			add_location(main, file, 8, 0, 184);
-    			attr_dev(button, "class", "clearCel btn btn-nav");
-    			attr_dev(button, "type", "button");
-    			attr_dev(button, "onclick", "menuClearCel()");
-    			add_location(button, file, 17, 2, 335);
-    			add_location(nav, file, 16, 0, 327);
-    			if (script0.src !== (script0_src_value = "./js/selectionFunctions.js")) attr_dev(script0, "src", script0_src_value);
-    			add_location(script0, file, 23, 2, 453);
-    			if (script1.src !== (script1_src_value = "./js/cell.js")) attr_dev(script1, "src", script1_src_value);
-    			add_location(script1, file, 25, 2, 507);
-    			add_location(footer, file, 22, 0, 442);
-    		},
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    			each_1_anchor = empty();
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, main, anchor);
-    			append_dev(main, div);
-
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(div, null);
+    				each_blocks[i].m(target, anchor);
     			}
 
-    			insert_dev(target, t0, anchor);
-    			insert_dev(target, nav, anchor);
-    			append_dev(nav, button);
-    			insert_dev(target, t2, anchor);
-    			insert_dev(target, footer, anchor);
-    			append_dev(footer, script0);
-    			append_dev(footer, t3);
-    			append_dev(footer, script1);
+    			insert_dev(target, each_1_anchor, anchor);
     			current = true;
     		},
-    		p: function update(ctx, [dirty]) {
+    		p: function update(ctx, dirty) {
     			if (dirty & /*menus*/ 1) {
     				each_value = /*menus*/ ctx[0];
     				let i;
@@ -669,7 +661,7 @@ var app = (function () {
     						each_blocks[i] = create_each_block(child_ctx);
     						each_blocks[i].c();
     						transition_in(each_blocks[i], 1);
-    						each_blocks[i].m(div, null);
+    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
     					}
     				}
 
@@ -701,12 +693,175 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(main);
     			destroy_each(each_blocks, detaching);
-    			if (detaching) detach_dev(t0);
+    			if (detaching) detach_dev(each_1_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block.name,
+    		type: "if",
+    		source: "(18:4) {#if menus}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (19:6) {#each menus as menu}
+    function create_each_block(ctx) {
+    	let current;
+
+    	const fetch = new Fetch({
+    			props: { sites: /*menu*/ ctx[3] },
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(fetch.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(fetch, target, anchor);
+    			current = true;
+    		},
+    		p: noop,
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(fetch.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(fetch.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(fetch, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block.name,
+    		type: "each",
+    		source: "(19:6) {#each menus as menu}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment(ctx) {
+    	let main;
+    	let div;
+    	let t0;
+    	let a;
+    	let button0;
+    	let t2;
+    	let input;
+    	let t3;
+    	let nav;
+    	let button1;
+    	let t5;
+    	let footer;
+    	let script0;
+    	let script0_src_value;
+    	let t6;
+    	let script1;
+    	let script1_src_value;
+    	let current;
+    	let dispose;
+    	let if_block = /*menus*/ ctx[0] && create_if_block(ctx);
+
+    	const block = {
+    		c: function create() {
+    			main = element("main");
+    			div = element("div");
+    			if (if_block) if_block.c();
+    			t0 = space();
+    			a = element("a");
+    			button0 = element("button");
+    			button0.textContent = "Export sites";
+    			t2 = space();
+    			input = element("input");
+    			t3 = space();
+    			nav = element("nav");
+    			button1 = element("button");
+    			button1.textContent = "Clear";
+    			t5 = space();
+    			footer = element("footer");
+    			script0 = element("script");
+    			t6 = space();
+    			script1 = element("script");
+    			attr_dev(div, "class", "flex-div__content svelte-a6rrxl");
+    			add_location(div, file, 16, 2, 445);
+    			attr_dev(button0, "class", "button svelte-a6rrxl");
+    			add_location(button0, file, 24, 4, 670);
+    			attr_dev(a, "href", `data:text/json;charset=utf-8,${/*importSites*/ ctx[1]}`);
+    			attr_dev(a, "download", "sites.json");
+    			add_location(a, file, 23, 2, 587);
+    			attr_dev(input, "class", "button svelte-a6rrxl");
+    			attr_dev(input, "type", "file");
+    			attr_dev(input, "id", "import");
+    			attr_dev(input, "accept", ".json");
+    			add_location(input, file, 26, 2, 726);
+    			attr_dev(main, "class", "flex-div svelte-a6rrxl");
+    			add_location(main, file, 15, 0, 419);
+    			attr_dev(button1, "class", "clearCel btn btn-nav");
+    			attr_dev(button1, "type", "button");
+    			attr_dev(button1, "onclick", "menuClearCel()");
+    			add_location(button1, file, 36, 2, 865);
+    			add_location(nav, file, 35, 0, 857);
+    			if (script0.src !== (script0_src_value = "./js/selectionFunctions.js")) attr_dev(script0, "src", script0_src_value);
+    			add_location(script0, file, 42, 2, 983);
+    			if (script1.src !== (script1_src_value = "./js/cell.js")) attr_dev(script1, "src", script1_src_value);
+    			add_location(script1, file, 44, 2, 1037);
+    			add_location(footer, file, 41, 0, 972);
+    			dispose = listen_dev(input, "change", /*pushSitesToLocalStorage*/ ctx[2], false, false, false);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, main, anchor);
+    			append_dev(main, div);
+    			if (if_block) if_block.m(div, null);
+    			append_dev(main, t0);
+    			append_dev(main, a);
+    			append_dev(a, button0);
+    			append_dev(main, t2);
+    			append_dev(main, input);
+    			insert_dev(target, t3, anchor);
+    			insert_dev(target, nav, anchor);
+    			append_dev(nav, button1);
+    			insert_dev(target, t5, anchor);
+    			insert_dev(target, footer, anchor);
+    			append_dev(footer, script0);
+    			append_dev(footer, t6);
+    			append_dev(footer, script1);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (/*menus*/ ctx[0]) if_block.p(ctx, dirty);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(main);
+    			if (if_block) if_block.d();
+    			if (detaching) detach_dev(t3);
     			if (detaching) detach_dev(nav);
-    			if (detaching) detach_dev(t2);
+    			if (detaching) detach_dev(t5);
     			if (detaching) detach_dev(footer);
+    			dispose();
     		}
     	};
 
@@ -722,19 +877,23 @@ var app = (function () {
     }
 
     function instance($$self) {
-    	const data = JSON.parse(JSON.parse(localStorage.getItem("sites")));
-    	const menus = data.data;
-    	console.log(data, menus);
+    	let menus = getFromLocalStorage("sites");
+    	const importSites = JSON.stringify(menus);
+
+    	const pushSitesToLocalStorage = event => {
+    		exportFileToLocalStorage(event, "sites");
+    		location.reload();
+    	};
 
     	$$self.$capture_state = () => {
     		return {};
     	};
 
     	$$self.$inject_state = $$props => {
-    		
+    		if ("menus" in $$props) $$invalidate(0, menus = $$props.menus);
     	};
 
-    	return [menus];
+    	return [menus, importSites, pushSitesToLocalStorage];
     }
 
     class App extends SvelteComponentDev {

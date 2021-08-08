@@ -5,11 +5,13 @@
 <aside id={sites.title}>
   <h2>{sites.title}</h2>
   <ul>
-    {#each sites.sites as site}
-      <li>
-        <a href={site.url} target="_blanks" rel="noopener">{site.name}</a>
-      </li>
-    {/each}
+    {#if sites && sites.sites}
+      {#each sites.sites as site}
+        <li>
+          <a href={site.url} target="_blanks" rel="noopener">{site.name}</a>
+        </li>
+      {/each}
+    {/if}
   </ul>
 </aside>
 

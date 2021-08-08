@@ -1,17 +1,36 @@
 <script>
   import Fetch from "./Fetch.svelte";
+  import { getFromLocalStorage } from "./utils/getFromLocalStorage";
+  import { exportFileToLocalStorage } from "./utils/exportFileToLocalStorage";
 
-  const data = JSON.parse(JSON.parse(localStorage.getItem("sites")));
-  const menus = data.data;
-  console.log(data, menus);
+  let menus = getFromLocalStorage("sites");
+
+  const importSites = JSON.stringify(menus);
+
+  const pushSitesToLocalStorage = (event) => {
+    exportFileToLocalStorage(event, "sites");
+    location.reload();
+  };
 </script>
 
 <main class="flex-div">
   <div class="flex-div__content">
-    {#each menus as menu}
-      <Fetch sites={menu} />
-    {/each}
+    {#if menus}
+      {#each menus as menu}
+        <Fetch sites={menu} />
+      {/each}
+    {/if}
   </div>
+  <a href={`data:text/json;charset=utf-8,${importSites}`} download="sites.json">
+    <button class="button"> Export sites </button>
+  </a>
+  <input
+    class="button"
+    type="file"
+    id="import"
+    accept=".json"
+    on:change={pushSitesToLocalStorage}
+  />
 </main>
 
 <nav>
@@ -27,6 +46,10 @@
 </footer>
 
 <style>
+  .button {
+    width: 250px;
+    margin: 16px auto;
+  }
   .flex-div {
     max-width: 240px;
 
@@ -44,7 +67,7 @@
     }
     .flex-div__content {
       display: flex;
-      justify-content: flex-start;
+      justify-content: space-evenly;
     }
   }
 </style>
