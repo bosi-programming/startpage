@@ -1,54 +1,46 @@
 <script>
   import Fetch from "./Fetch.svelte";
+  import JsonEditor from "./JsonEditor.svelte";
   import { getFromLocalStorage } from "./utils/getFromLocalStorage";
-  import { exportFileToLocalStorage } from "./utils/exportFileToLocalStorage";
 
-  let menus = getFromLocalStorage("sites");
+  let menus = getFromLocalStorage("sites") || null;
+  let isBuilderOpen = false;
 
-  const importSites = JSON.stringify(menus);
-
-  const pushSitesToLocalStorage = (event) => {
-    exportFileToLocalStorage(event, "sites");
-    location.reload();
+  const handleOpenBuilder = () => {
+    isBuilderOpen = !isBuilderOpen;
+    menus = getFromLocalStorage("sites");
   };
 </script>
 
 <main class="flex-div">
-  <div class="flex-div__content">
-    {#if menus}
-      {#each menus as menu}
-        <Fetch sites={menu} />
-      {/each}
-    {/if}
-  </div>
-  <a href={`data:text/json;charset=utf-8,${importSites}`} download="sites.json">
-    <button class="button"> Export sites </button>
-  </a>
-  <input
-    class="button"
-    type="file"
-    id="import"
-    accept=".json"
-    on:change={pushSitesToLocalStorage}
-  />
+  {#if isBuilderOpen}
+    <form class="flex-div">
+      <JsonEditor sites={menus} {handleOpenBuilder} />
+    </form>
+  {:else}
+    <div class="flex-div__content">
+      {#if menus}
+        {#each menus as menu}
+          <Fetch sites={menu} />
+        {/each}
+      {/if}
+    </div>
+    <button class="button" on:click={handleOpenBuilder}> Open Builder </button>
+  {/if}
 </main>
-
-<nav>
-  <button class="clearCel btn btn-nav" type="button" onclick="menuClearCel()">
-    Clear
-  </button>
-</nav>
-
-<footer>
-  <script src="./js/selectionFunctions.js"></script>
-
-  <script src="./js/cell.js"></script>
-</footer>
 
 <style>
   .button {
+    background-color: #3C8DB9;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
     width: 250px;
     margin: 16px auto;
+  }
+  .button:active {
+    background-color: #86BBD8;
   }
   .flex-div {
     max-width: 240px;
