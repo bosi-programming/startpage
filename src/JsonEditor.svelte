@@ -4,6 +4,7 @@
 
   export let sites;
   export let handleOpenBuilder;
+  const windowWidth = window.innerWidth;
   let newSites;
 
   const pushSitesToLocalStorage = (e) => {
@@ -25,7 +26,7 @@
 
 <h1>Personalize your startpage</h1>
 <textarea
-  cols="100"
+  cols={windowWidth < 1024 ? 30 : 100}
   rows="30"
   type="text"
   value={JSON.stringify(sites, null, 2)}
@@ -56,10 +57,10 @@
 
 <style>
   .button {
-    background-color: #3C8DB9;
+    background-color: rgb(35, 35, 60);
     color: white;
-    border: none;
-    border-radius: 4px;
+    border: 1px solid #3c8db9;
+    border-radius: 8px;
     cursor: pointer;
     width: 250px;
     margin: 16px;
@@ -68,6 +69,6 @@
     margin: 16px auto;
   }
   .button:active {
-    background-color: #86BBD8;
+    background-color: rgb(45, 45, 70);
   }
 </style>
