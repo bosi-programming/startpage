@@ -8,7 +8,7 @@
     {#if sites && sites.sites}
       {#each sites.sites as site}
         <li>
-          <a href={site.url} target="_blanks" rel="noopener">{site.name}</a>
+          <a href={site.url} target="_self" rel="noopener">{site.name}</a>
         </li>
       {/each}
     {/if}
