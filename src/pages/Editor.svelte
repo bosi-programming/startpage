@@ -1,11 +1,14 @@
 <script>
-  import { saveSites } from "./utils/saveSites";
-  import { exportFileToLocalStorage } from "./utils/exportFileToLocalStorage.js";
+  import JsonEditor from "../components/JsonEditor.svelte";
+  import FormEditor from "../components/FormEditor.svelte";
+  import { saveSites } from "../utils/saveSites";
+  import { exportFileToLocalStorage } from "../utils/exportFileToLocalStorage.js";
 
-  export let sites;
+  export let allMenus;
   export let handleOpenBuilder;
-  const windowWidth = window.innerWidth;
+
   let newSites;
+  let selectedBuilder = "form";
 
   const pushSitesToLocalStorage = (e) => {
     console.log(e.target.value, newSites);
@@ -19,19 +22,25 @@
     location.reload();
   };
 
-  const updateSites = (e) => {
-    newSites = e.target.value;
+  const updateSites = (newValue) => {
+    newSites = newValue;
+  };
+
+  const changeBuilder = () => {
+    if (selectedBuilder === "form") {
+      selectedBuilder = "json";
+    } else {
+      selectedBuilder = "form";
+    }
   };
 </script>
 
 <h1>Personalize your startpage</h1>
-<textarea
-  cols={windowWidth < 1024 ? 30 : 100}
-  rows="30"
-  type="text"
-  value={JSON.stringify(sites, null, 2)}
-  on:change={updateSites}
-/>
+{#if selectedBuilder === 'form'}
+  <FormEditor {allMenus} {updateSites} />
+{:else}
+  <JsonEditor {allMenus} {updateSites} />
+{/if}
 <button
   class="button button-center"
   type="submit"
@@ -39,9 +48,12 @@
 >
   Submit
 </button>
-<button class="button button-center" on:click={handleOpenBuilder}>
-  Close Builder
-</button>
+<div>
+  <button class="button" on:click={handleOpenBuilder}> Close Builder </button>
+  <button class="button" on:click|preventDefault={changeBuilder}>
+    {selectedBuilder === "form" ? "JSON" : "Form"} Builder
+  </button>
+</div>
 <div>
   <button class="button" on:click|preventDefault={saveSites}>
     Export sites

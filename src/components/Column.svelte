@@ -1,12 +1,12 @@
 <script>
-  export let sites = [];
+  export let column = [];
 </script>
 
-<aside id={sites.title}>
-  <h2>{sites.title}</h2>
+<aside id={column.title}>
+  <h2>{column.title}</h2>
   <ul>
-    {#if sites && sites.sites}
-      {#each sites.sites as site}
+    {#if column && column.sites}
+      {#each column.sites as site}
         <li>
           <a href={site.url} target="_self" rel="noopener">{site.name}</a>
         </li>
