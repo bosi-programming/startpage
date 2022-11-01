@@ -1,6 +1,6 @@
 <script>
   import JsonEditor from "../components/JsonEditor.svelte";
-  import FormEditor from "../components/FormEditor.svelte";
+  import FormEditor from "../components/FormEditor/FormEditor.svelte";
   import { saveSites } from "../utils/saveSites";
   import { exportFileToLocalStorage } from "../utils/exportFileToLocalStorage.js";
 
