@@ -13,6 +13,12 @@
     const newSites = selectedColumn.sites;
     return newSites;
   };
+
+  const deleteSite = (index) => {
+    const allSites = selectedColumn.sites;
+    allSites.splice(index, 1);
+    return allSites;
+  };
 </script>
 
 <aside id={selectedColumn.title} class="form-editor__content">
@@ -47,6 +53,14 @@
               updateMenu(newSites, selectedColumnIndex, `sites`);
             }}
           />
+          <button
+            class="button button-danger"
+            type="button"
+            on:click={() => {
+              const newSites = deleteSite(siteIndex);
+              updateMenu(newSites, selectedColumnIndex, `sites`);
+            }}>Delete</button
+          >
         </li>
       {/each}
     {/if}
@@ -84,6 +98,11 @@
     cursor: pointer;
     width: 250px;
     margin: 16px;
+  }
+  .button-danger {
+    background-color: #ba000d;
+    border: 1px solid black;
+    width: 100px;
   }
   .button-center {
     margin: 16px auto 32px auto;

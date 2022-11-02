@@ -1382,12 +1382,12 @@ var app = (function () {
 
     function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[8] = list[i];
-    	child_ctx[10] = i;
+    	child_ctx[10] = list[i];
+    	child_ctx[12] = i;
     	return child_ctx;
     }
 
-    // (29:4) {#if selectedColumn && selectedColumn.sites}
+    // (35:4) {#if selectedColumn && selectedColumn.sites}
     function create_if_block$3(ctx) {
     	let each_1_anchor;
     	let each_value = /*selectedColumn*/ ctx[0].sites;
@@ -1413,7 +1413,7 @@ var app = (function () {
     			insert_dev(target, each_1_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*selectedColumn, getNewSites, updateMenu, selectedColumnIndex*/ 15) {
+    			if (dirty & /*deleteSite, updateMenu, selectedColumnIndex, selectedColumn, getNewSites*/ 31) {
     				each_value = /*selectedColumn*/ ctx[0].sites;
     				let i;
 
@@ -1446,14 +1446,14 @@ var app = (function () {
     		block,
     		id: create_if_block$3.name,
     		type: "if",
-    		source: "(29:4) {#if selectedColumn && selectedColumn.sites}",
+    		source: "(35:4) {#if selectedColumn && selectedColumn.sites}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (30:6) {#each selectedColumn.sites as site, siteIndex}
+    // (36:6) {#each selectedColumn.sites as site, siteIndex}
     function create_each_block$1(ctx) {
     	let li;
     	let input0;
@@ -1462,14 +1462,20 @@ var app = (function () {
     	let input1;
     	let input1_value_value;
     	let t1;
+    	let button;
+    	let t3;
     	let dispose;
 
     	function change_handler_1(...args) {
-    		return /*change_handler_1*/ ctx[5](/*siteIndex*/ ctx[10], ...args);
+    		return /*change_handler_1*/ ctx[6](/*siteIndex*/ ctx[12], ...args);
     	}
 
     	function change_handler_2(...args) {
-    		return /*change_handler_2*/ ctx[6](/*siteIndex*/ ctx[10], ...args);
+    		return /*change_handler_2*/ ctx[7](/*siteIndex*/ ctx[12], ...args);
+    	}
+
+    	function click_handler(...args) {
+    		return /*click_handler*/ ctx[8](/*siteIndex*/ ctx[12], ...args);
     	}
 
     	const block = {
@@ -1479,20 +1485,27 @@ var app = (function () {
     			t0 = space();
     			input1 = element("input");
     			t1 = space();
+    			button = element("button");
+    			button.textContent = "Delete";
+    			t3 = space();
     			attr_dev(input0, "type", "url");
     			attr_dev(input0, "placeholder", "URL");
-    			input0.value = input0_value_value = /*site*/ ctx[8].url;
-    			add_location(input0, file$3, 31, 10, 856);
+    			input0.value = input0_value_value = /*site*/ ctx[10].url;
+    			add_location(input0, file$3, 37, 10, 991);
     			attr_dev(input1, "type", "text");
     			attr_dev(input1, "placeholder", "Site name");
-    			input1.value = input1_value_value = /*site*/ ctx[8].name;
-    			add_location(input1, file$3, 40, 10, 1159);
-    			attr_dev(li, "class", "svelte-1flinyf");
-    			add_location(li, file$3, 30, 8, 841);
+    			input1.value = input1_value_value = /*site*/ ctx[10].name;
+    			add_location(input1, file$3, 46, 10, 1294);
+    			attr_dev(button, "class", "button button-danger svelte-4suq9m");
+    			attr_dev(button, "type", "button");
+    			add_location(button, file$3, 55, 10, 1606);
+    			attr_dev(li, "class", "svelte-4suq9m");
+    			add_location(li, file$3, 36, 8, 976);
 
     			dispose = [
     				listen_dev(input0, "change", change_handler_1, false, false, false),
-    				listen_dev(input1, "change", change_handler_2, false, false, false)
+    				listen_dev(input1, "change", change_handler_2, false, false, false),
+    				listen_dev(button, "click", click_handler, false, false, false)
     			];
     		},
     		m: function mount(target, anchor) {
@@ -1501,15 +1514,17 @@ var app = (function () {
     			append_dev(li, t0);
     			append_dev(li, input1);
     			append_dev(li, t1);
+    			append_dev(li, button);
+    			append_dev(li, t3);
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty & /*selectedColumn*/ 1 && input0_value_value !== (input0_value_value = /*site*/ ctx[8].url)) {
+    			if (dirty & /*selectedColumn*/ 1 && input0_value_value !== (input0_value_value = /*site*/ ctx[10].url)) {
     				prop_dev(input0, "value", input0_value_value);
     			}
 
-    			if (dirty & /*selectedColumn*/ 1 && input1_value_value !== (input1_value_value = /*site*/ ctx[8].name)) {
+    			if (dirty & /*selectedColumn*/ 1 && input1_value_value !== (input1_value_value = /*site*/ ctx[10].name)) {
     				prop_dev(input1, "value", input1_value_value);
     			}
     		},
@@ -1523,7 +1538,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(30:6) {#each selectedColumn.sites as site, siteIndex}",
+    		source: "(36:6) {#each selectedColumn.sites as site, siteIndex}",
     		ctx
     	});
 
@@ -1562,24 +1577,24 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Add new site";
     			attr_dev(label, "for", label_for_value = `title-${/*selectedColumn*/ ctx[0]}`);
-    			add_location(label, file$3, 19, 4, 500);
+    			add_location(label, file$3, 25, 4, 635);
     			attr_dev(input, "type", "text");
     			input.value = input_value_value = /*selectedColumn*/ ctx[0].title;
-    			add_location(input, file$3, 20, 4, 557);
+    			add_location(input, file$3, 26, 4, 692);
     			attr_dev(div, "class", "field");
-    			add_location(div, file$3, 18, 2, 476);
-    			attr_dev(ul, "class", "svelte-1flinyf");
-    			add_location(ul, file$3, 27, 2, 725);
-    			attr_dev(button, "class", "button button-center svelte-1flinyf");
+    			add_location(div, file$3, 24, 2, 611);
+    			attr_dev(ul, "class", "svelte-4suq9m");
+    			add_location(ul, file$3, 33, 2, 860);
+    			attr_dev(button, "class", "button button-center svelte-4suq9m");
     			attr_dev(button, "type", "button");
-    			add_location(button, file$3, 53, 2, 1509);
+    			add_location(button, file$3, 67, 2, 1921);
     			attr_dev(aside, "id", aside_id_value = /*selectedColumn*/ ctx[0].title);
     			attr_dev(aside, "class", "form-editor__content");
-    			add_location(aside, file$3, 17, 0, 411);
+    			add_location(aside, file$3, 23, 0, 546);
 
     			dispose = [
-    				listen_dev(input, "change", /*change_handler*/ ctx[4], false, false, false),
-    				listen_dev(button, "click", /*click_handler*/ ctx[7], false, false, false)
+    				listen_dev(input, "change", /*change_handler*/ ctx[5], false, false, false),
+    				listen_dev(button, "click", /*click_handler_1*/ ctx[9], false, false, false)
     			];
     		},
     		l: function claim(nodes) {
@@ -1662,6 +1677,12 @@ var app = (function () {
     		return newSites;
     	};
 
+    	const deleteSite = index => {
+    		const allSites = selectedColumn.sites;
+    		allSites.splice(index, 1);
+    		return allSites;
+    	};
+
     	const writable_props = ["selectedColumn", "selectedColumnIndex", "updateMenu"];
 
     	Object.keys($$props).forEach(key => {
@@ -1680,7 +1701,12 @@ var app = (function () {
     		updateMenu(newSites, selectedColumnIndex, `sites`);
     	};
 
-    	const click_handler = () => {
+    	const click_handler = siteIndex => {
+    		const newSites = deleteSite(siteIndex);
+    		updateMenu(newSites, selectedColumnIndex, `sites`);
+    	};
+
+    	const click_handler_1 = () => {
     		const newSites = getNewSites("", selectedColumn.sites.length);
     		updateMenu(newSites, selectedColumnIndex, `sites`);
     	};
@@ -1710,10 +1736,12 @@ var app = (function () {
     		selectedColumnIndex,
     		updateMenu,
     		getNewSites,
+    		deleteSite,
     		change_handler,
     		change_handler_1,
     		change_handler_2,
-    		click_handler
+    		click_handler,
+    		click_handler_1
     	];
     }
 
@@ -1776,8 +1804,6 @@ var app = (function () {
     }
 
     /* src/components/FormEditor/FormEditor.svelte generated by Svelte v3.16.5 */
-
-    const { console: console_1$1 } = globals;
     const file$2 = "src/components/FormEditor/FormEditor.svelte";
 
     function get_each_context(ctx, list, i) {
@@ -1787,7 +1813,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (36:4) {#if newSites}
+    // (34:4) {#if newSites}
     function create_if_block_1(ctx) {
     	let each_1_anchor;
     	let each_value = /*newSites*/ ctx[1];
@@ -1846,14 +1872,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(36:4) {#if newSites}",
+    		source: "(34:4) {#if newSites}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (37:6) {#each newSites as column, index}
+    // (35:6) {#each newSites as column, index}
     function create_each_block(ctx) {
     	let option;
     	let t_value = /*column*/ ctx[6].title + "";
@@ -1865,7 +1891,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = /*index*/ ctx[8];
     			option.value = option.__value;
-    			add_location(option, file$2, 37, 8, 1006);
+    			add_location(option, file$2, 35, 8, 948);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -1883,14 +1909,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(37:6) {#each newSites as column, index}",
+    		source: "(35:6) {#each newSites as column, index}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (43:2) {#if newSites && newSites[selectedColumn]}
+    // (41:2) {#if newSites && newSites[selectedColumn]}
     function create_if_block$2(ctx) {
     	let current;
 
@@ -1935,7 +1961,7 @@ var app = (function () {
     		block,
     		id: create_if_block$2.name,
     		type: "if",
-    		source: "(43:2) {#if newSites && newSites[selectedColumn]}",
+    		source: "(41:2) {#if newSites && newSites[selectedColumn]}",
     		ctx
     	});
 
@@ -1970,21 +1996,21 @@ var app = (function () {
     			t4 = space();
     			if (if_block1) if_block1.c();
     			attr_dev(label, "for", "column");
-    			add_location(label, file$2, 20, 2, 473);
+    			add_location(label, file$2, 18, 2, 415);
     			option0.__value = null;
     			option0.value = option0.__value;
     			option0.hidden = true;
     			option0.selected = true;
     			option0.disabled = true;
-    			add_location(option0, file$2, 34, 4, 867);
+    			add_location(option0, file$2, 32, 4, 809);
     			option1.__value = "new";
     			option1.value = option1.__value;
-    			add_location(option1, file$2, 40, 4, 1080);
+    			add_location(option1, file$2, 38, 4, 1022);
     			attr_dev(select, "name", "sites");
     			attr_dev(select, "id", "sites");
-    			add_location(select, file$2, 21, 2, 539);
+    			add_location(select, file$2, 19, 2, 481);
     			attr_dev(main, "class", "flex-div");
-    			add_location(main, file$2, 19, 0, 447);
+    			add_location(main, file$2, 17, 0, 389);
 
     			dispose = listen_dev(
     				select,
@@ -2080,7 +2106,6 @@ var app = (function () {
     	let { updateSites } = $$props;
     	let { allMenus } = $$props;
     	let selectedColumn = 0;
-    	console.log(selectedColumn);
     	let newSites = allMenus || [];
 
     	const updateMenu = (newValue, index, field) => {
@@ -2090,13 +2115,12 @@ var app = (function () {
 
     		$$invalidate(1, newSites[index][field] = newValue, newSites);
     		updateSites(JSON.stringify(newSites));
-    		console.log(newSites);
     	};
 
     	const writable_props = ["updateSites", "allMenus"];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$1.warn(`<FormEditor> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<FormEditor> was created with unknown prop '${key}'`);
     	});
 
     	const change_handler = e => {
@@ -2150,11 +2174,11 @@ var app = (function () {
     		const props = options.props || ({});
 
     		if (/*updateSites*/ ctx[3] === undefined && !("updateSites" in props)) {
-    			console_1$1.warn("<FormEditor> was created without expected prop 'updateSites'");
+    			console.warn("<FormEditor> was created without expected prop 'updateSites'");
     		}
 
     		if (/*allMenus*/ ctx[4] === undefined && !("allMenus" in props)) {
-    			console_1$1.warn("<FormEditor> was created without expected prop 'allMenus'");
+    			console.warn("<FormEditor> was created without expected prop 'allMenus'");
     		}
     	}
 

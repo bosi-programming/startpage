@@ -3,7 +3,6 @@
   export let updateSites;
   export let allMenus;
   let selectedColumn = 0;
-  console.log(selectedColumn);
 
   let newSites = allMenus || [];
 
@@ -13,7 +12,6 @@
     }
     newSites[index][field] = newValue;
     updateSites(JSON.stringify(newSites));
-    console.log(newSites);
   };
 </script>
 
