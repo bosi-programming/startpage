@@ -18,13 +18,6 @@
 </script>
 
 <main class="flex-div">
-  {#if newSites && newSites[selectedColumn]}
-    <EditColumn
-      selectedColumnIndex={selectedColumn}
-      selectedColumn={newSites[selectedColumn]}
-      {updateMenu}
-    />
-  {/if}
   <label for="column">Choose the column you want to edit:</label>
   <select
     name="sites"
@@ -39,12 +32,19 @@
       }
     }}
   >
+    <option value={null} hidden selected disabled>Select an option</option>
     {#if newSites}
       {#each newSites as column, index}
         <option value={index}>{column.title}</option>
       {/each}
     {/if}
     <option value="new">Add new column</option>
-    <option value={null} selected disabled>Select an option</option>
   </select>
+  {#if newSites && newSites[selectedColumn]}
+    <EditColumn
+      selectedColumnIndex={selectedColumn}
+      selectedColumn={newSites[selectedColumn]}
+      {updateMenu}
+    />
+  {/if}
 </main>

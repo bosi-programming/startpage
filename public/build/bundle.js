@@ -1787,60 +1787,8 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (21:2) {#if newSites && newSites[selectedColumn]}
+    // (36:4) {#if newSites}
     function create_if_block_1(ctx) {
-    	let current;
-
-    	const editcolumn = new EditColumn({
-    			props: {
-    				selectedColumnIndex: /*selectedColumn*/ ctx[0],
-    				selectedColumn: /*newSites*/ ctx[1][/*selectedColumn*/ ctx[0]],
-    				updateMenu: /*updateMenu*/ ctx[2]
-    			},
-    			$$inline: true
-    		});
-
-    	const block = {
-    		c: function create() {
-    			create_component(editcolumn.$$.fragment);
-    		},
-    		m: function mount(target, anchor) {
-    			mount_component(editcolumn, target, anchor);
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			const editcolumn_changes = {};
-    			if (dirty & /*selectedColumn*/ 1) editcolumn_changes.selectedColumnIndex = /*selectedColumn*/ ctx[0];
-    			if (dirty & /*newSites, selectedColumn*/ 3) editcolumn_changes.selectedColumn = /*newSites*/ ctx[1][/*selectedColumn*/ ctx[0]];
-    			editcolumn.$set(editcolumn_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(editcolumn.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(editcolumn.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			destroy_component(editcolumn, detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_if_block_1.name,
-    		type: "if",
-    		source: "(21:2) {#if newSites && newSites[selectedColumn]}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (42:4) {#if newSites}
-    function create_if_block$2(ctx) {
     	let each_1_anchor;
     	let each_value = /*newSites*/ ctx[1];
     	let each_blocks = [];
@@ -1896,16 +1844,16 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$2.name,
+    		id: create_if_block_1.name,
     		type: "if",
-    		source: "(42:4) {#if newSites}",
+    		source: "(36:4) {#if newSites}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (43:6) {#each newSites as column, index}
+    // (37:6) {#each newSites as column, index}
     function create_each_block(ctx) {
     	let option;
     	let t_value = /*column*/ ctx[6].title + "";
@@ -1917,7 +1865,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = /*index*/ ctx[8];
     			option.value = option.__value;
-    			add_location(option, file$2, 43, 8, 1116);
+    			add_location(option, file$2, 37, 8, 1006);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -1935,7 +1883,59 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(43:6) {#each newSites as column, index}",
+    		source: "(37:6) {#each newSites as column, index}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (43:2) {#if newSites && newSites[selectedColumn]}
+    function create_if_block$2(ctx) {
+    	let current;
+
+    	const editcolumn = new EditColumn({
+    			props: {
+    				selectedColumnIndex: /*selectedColumn*/ ctx[0],
+    				selectedColumn: /*newSites*/ ctx[1][/*selectedColumn*/ ctx[0]],
+    				updateMenu: /*updateMenu*/ ctx[2]
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(editcolumn.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(editcolumn, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const editcolumn_changes = {};
+    			if (dirty & /*selectedColumn*/ 1) editcolumn_changes.selectedColumnIndex = /*selectedColumn*/ ctx[0];
+    			if (dirty & /*newSites, selectedColumn*/ 3) editcolumn_changes.selectedColumn = /*newSites*/ ctx[1][/*selectedColumn*/ ctx[0]];
+    			editcolumn.$set(editcolumn_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(editcolumn.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(editcolumn.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(editcolumn, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$2.name,
+    		type: "if",
+    		source: "(43:2) {#if newSites && newSites[selectedColumn]}",
     		ctx
     	});
 
@@ -1944,44 +1944,45 @@ var app = (function () {
 
     function create_fragment$2(ctx) {
     	let main;
-    	let t0;
     	let label;
-    	let t2;
+    	let t1;
     	let select;
     	let option0;
     	let option1;
+    	let t4;
     	let current;
     	let dispose;
-    	let if_block0 = /*newSites*/ ctx[1] && /*newSites*/ ctx[1][/*selectedColumn*/ ctx[0]] && create_if_block_1(ctx);
-    	let if_block1 = /*newSites*/ ctx[1] && create_if_block$2(ctx);
+    	let if_block0 = /*newSites*/ ctx[1] && create_if_block_1(ctx);
+    	let if_block1 = /*newSites*/ ctx[1] && /*newSites*/ ctx[1][/*selectedColumn*/ ctx[0]] && create_if_block$2(ctx);
 
     	const block = {
     		c: function create() {
     			main = element("main");
-    			if (if_block0) if_block0.c();
-    			t0 = space();
     			label = element("label");
     			label.textContent = "Choose the column you want to edit:";
-    			t2 = space();
+    			t1 = space();
     			select = element("select");
-    			if (if_block1) if_block1.c();
     			option0 = element("option");
-    			option0.textContent = "Add new column";
+    			option0.textContent = "Select an option";
+    			if (if_block0) if_block0.c();
     			option1 = element("option");
-    			option1.textContent = "Select an option";
+    			option1.textContent = "Add new column";
+    			t4 = space();
+    			if (if_block1) if_block1.c();
     			attr_dev(label, "for", "column");
-    			add_location(label, file$2, 27, 2, 659);
-    			option0.__value = "new";
+    			add_location(label, file$2, 20, 2, 473);
+    			option0.__value = null;
     			option0.value = option0.__value;
-    			add_location(option0, file$2, 46, 4, 1190);
-    			option1.__value = null;
+    			option0.hidden = true;
+    			option0.selected = true;
+    			option0.disabled = true;
+    			add_location(option0, file$2, 34, 4, 867);
+    			option1.__value = "new";
     			option1.value = option1.__value;
-    			option1.selected = true;
-    			option1.disabled = true;
-    			add_location(option1, file$2, 47, 4, 1238);
+    			add_location(option1, file$2, 40, 4, 1080);
     			attr_dev(select, "name", "sites");
     			attr_dev(select, "id", "sites");
-    			add_location(select, file$2, 28, 2, 725);
+    			add_location(select, file$2, 21, 2, 539);
     			attr_dev(main, "class", "flex-div");
     			add_location(main, file$2, 19, 0, 447);
 
@@ -2001,59 +2002,59 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, main, anchor);
-    			if (if_block0) if_block0.m(main, null);
-    			append_dev(main, t0);
     			append_dev(main, label);
-    			append_dev(main, t2);
+    			append_dev(main, t1);
     			append_dev(main, select);
-    			if (if_block1) if_block1.m(select, null);
     			append_dev(select, option0);
+    			if (if_block0) if_block0.m(select, null);
     			append_dev(select, option1);
+    			append_dev(main, t4);
+    			if (if_block1) if_block1.m(main, null);
     			current = true;
     		},
     		p: function update(new_ctx, [dirty]) {
     			ctx = new_ctx;
 
-    			if (/*newSites*/ ctx[1] && /*newSites*/ ctx[1][/*selectedColumn*/ ctx[0]]) {
+    			if (/*newSites*/ ctx[1]) {
     				if (if_block0) {
     					if_block0.p(ctx, dirty);
-    					transition_in(if_block0, 1);
     				} else {
     					if_block0 = create_if_block_1(ctx);
     					if_block0.c();
-    					transition_in(if_block0, 1);
-    					if_block0.m(main, t0);
+    					if_block0.m(select, option1);
     				}
     			} else if (if_block0) {
+    				if_block0.d(1);
+    				if_block0 = null;
+    			}
+
+    			if (/*newSites*/ ctx[1] && /*newSites*/ ctx[1][/*selectedColumn*/ ctx[0]]) {
+    				if (if_block1) {
+    					if_block1.p(ctx, dirty);
+    					transition_in(if_block1, 1);
+    				} else {
+    					if_block1 = create_if_block$2(ctx);
+    					if_block1.c();
+    					transition_in(if_block1, 1);
+    					if_block1.m(main, null);
+    				}
+    			} else if (if_block1) {
     				group_outros();
 
-    				transition_out(if_block0, 1, 1, () => {
-    					if_block0 = null;
+    				transition_out(if_block1, 1, 1, () => {
+    					if_block1 = null;
     				});
 
     				check_outros();
     			}
-
-    			if (/*newSites*/ ctx[1]) {
-    				if (if_block1) {
-    					if_block1.p(ctx, dirty);
-    				} else {
-    					if_block1 = create_if_block$2(ctx);
-    					if_block1.c();
-    					if_block1.m(select, option0);
-    				}
-    			} else if (if_block1) {
-    				if_block1.d(1);
-    				if_block1 = null;
-    			}
     		},
     		i: function intro(local) {
     			if (current) return;
-    			transition_in(if_block0);
+    			transition_in(if_block1);
     			current = true;
     		},
     		o: function outro(local) {
-    			transition_out(if_block0);
+    			transition_out(if_block1);
     			current = false;
     		},
     		d: function destroy(detaching) {
