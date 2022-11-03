@@ -1,24 +1,28 @@
 <script>
+  import { sites } from "./stores/sites.js";
   import Home from "./pages/Home.svelte";
   import Editor from "./pages/Editor.svelte";
-  import { getFromLocalStorage } from "./utils/getFromLocalStorage";
 
-  let allMenus = getFromLocalStorage("sites") || null;
+  let allSites;
   let isBuilderOpen = false;
+
+  sites.subscribe((value) => {
+    console.log(value);
+    allSites = value;
+  });
 
   const handleOpenBuilder = () => {
     isBuilderOpen = !isBuilderOpen;
-    allMenus = getFromLocalStorage("sites");
   };
 </script>
 
 <main class="flex-div">
-  {#if isBuilderOpen}
+  {#if isBuilderOpen || !allSites}
     <form class="flex-div">
-      <Editor {allMenus} {handleOpenBuilder} />
+      <Editor {allSites} {handleOpenBuilder} />
     </form>
   {:else}
-    <Home {allMenus} {handleOpenBuilder} />
+    <Home allMenus={allSites} {handleOpenBuilder} />
   {/if}
 </main>
 

@@ -4,26 +4,20 @@
   import { saveSites } from "../utils/saveSites";
   import { exportFileToLocalStorage } from "../utils/exportFileToLocalStorage.js";
 
-  export let allMenus;
+  export let allSites;
   export let handleOpenBuilder;
 
-  let newSites;
   let selectedBuilder = "form";
 
-  const pushSitesToLocalStorage = (e) => {
-    console.log(e.target.value, newSites);
+  const pushSitesToLocalStorage = () => {
     localStorage.removeItem("sites");
-    localStorage.setItem("sites", newSites);
+    localStorage.setItem("sites", JSON.stringify(allSites));
     handleOpenBuilder();
   };
 
   const pushFileToLocalStorage = (e) => {
     exportFileToLocalStorage(e, "sites");
     location.reload();
-  };
-
-  const updateSites = (newValue) => {
-    newSites = newValue;
   };
 
   const changeBuilder = () => {
@@ -36,10 +30,10 @@
 </script>
 
 <h1>Personalize your startpage</h1>
-{#if selectedBuilder === 'form'}
-  <FormEditor {allMenus} {updateSites} />
+{#if selectedBuilder === "form"}
+  <FormEditor allSites={allSites} />
 {:else}
-  <JsonEditor {allMenus} {updateSites} />
+  <JsonEditor allMenus={allSites} />
 {/if}
 <button
   class="button button-center"

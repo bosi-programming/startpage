@@ -1,24 +1,12 @@
 <script>
+  import {
+    updateColumn,
+    addNewSite,
+    updateSite,
+    deleteSite,
+  } from "../../../stores/sites";
   export let selectedColumn;
   export let selectedColumnIndex;
-  export let updateMenu;
-  const getNewSites = (newValue, index, field) => {
-    if (!selectedColumn.sites[index]) {
-      selectedColumn.sites[index] = { url: "", name: "" };
-    }
-    if (field) {
-      selectedColumn.sites[index][field] = newValue;
-    }
-
-    const newSites = selectedColumn.sites;
-    return newSites;
-  };
-
-  const deleteSite = (index) => {
-    const allSites = selectedColumn.sites;
-    allSites.splice(index, 1);
-    return allSites;
-  };
 </script>
 
 <aside id={selectedColumn.title} class="form-editor__content">
@@ -28,7 +16,7 @@
       type="text"
       value={selectedColumn.title}
       on:change={(e) =>
-        updateMenu(e.target.value, selectedColumnIndex, "title")}
+        updateColumn(e.target.value, selectedColumnIndex, "title")}
     />
   </div>
   <ul>
@@ -39,27 +27,26 @@
             type="url"
             placeholder="URL"
             value={site.url}
-            on:change={(e) => {
-              const newSites = getNewSites(e.target.value, siteIndex, "url");
-              updateMenu(newSites, selectedColumnIndex, `sites`);
-            }}
+            on:change={(e) =>
+              updateSite(e.target.value, siteIndex, selectedColumnIndex, "url")}
           />
           <input
             type="text"
             placeholder="Site name"
             value={site.name}
-            on:change={(e) => {
-              const newSites = getNewSites(e.target.value, siteIndex, "name");
-              updateMenu(newSites, selectedColumnIndex, `sites`);
-            }}
+            on:change={(e) =>
+              updateSite(
+                e.target.value,
+                siteIndex,
+                selectedColumnIndex,
+                "name"
+              )}
           />
           <button
             class="button button-danger"
             type="button"
-            on:click={() => {
-              const newSites = deleteSite(siteIndex);
-              updateMenu(newSites, selectedColumnIndex, `sites`);
-            }}>Delete</button
+            on:click={() => deleteSite(siteIndex, selectedColumnIndex)}
+            >Delete</button
           >
         </li>
       {/each}
@@ -68,10 +55,7 @@
   <button
     class="button button-center"
     type="button"
-    on:click={() => {
-      const newSites = getNewSites("", selectedColumn.sites.length);
-      updateMenu(newSites, selectedColumnIndex, `sites`);
-    }}
+    on:click={() => addNewSite(selectedColumnIndex)}
   >
     Add new site
   </button>

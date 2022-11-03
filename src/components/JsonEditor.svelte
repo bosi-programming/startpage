@@ -1,5 +1,5 @@
 <script>
-  export let updateSites;
+  import { updateSites } from "../stores/sites.js";
   export let allMenus;
 
   const windowWidth = window.innerWidth;
