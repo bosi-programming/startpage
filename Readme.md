@@ -1,29 +1,15 @@
-# PWA StartPage focused on links about tea and programming
+# Dynamic StartPage
 
-This page is meant to be a responsive pwa startpage with some import links to myself and with a little table to help me calculate how to make tea on the style I want.
+Web app made to store links and separate them based on columns. It features two different editors, one based on formularies and another based on a text editor.
 
-<img src="readmeImages/screenshotofStartPage.jpg" alt="Screenshot of the StartPage">
+The app uses your browser's local storage instead of a backend to keep the links. To handle the data not being accessible everywhere, the app has an export/import feature that lets you save your sites as a JSON file.
 
-## Tea
+![Screenshot of main screen](./readmeImages/main.png) 
 
-On this you'll find links to some of the best tea vendors from China, Japan, India, Vietnan, Greece and Brazil.
+Form editor:
 
-## Study
+![Form editor](./readmeImages/form-editor.png)
 
-Here you'll find some of the resources that I use to study.
+JSON editor:
 
-## Programming
-
-Here I put some links to some sites and tools that I use while programming.
-
-## Utilities
-
-Some links to sites and apps that I use on my day.
-
-## Books
-
-Links to sites that I use to download or buy books.
-
-## How do I make tea?
-
-A little table that shows how much tea you need, by 100ml, and how long you should steep to make your beverage on three different styles: western, half gongfu and gongfu.
+![JSON editor](./readmeImages/json-editor.png)
