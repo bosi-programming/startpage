@@ -1,21 +1,35 @@
 <script>
   export let column = [];
+  export let isSubColumn = false;
 </script>
 
 <aside id={column.title}>
-  <h2>{column.title}</h2>
-  <ul>
-    {#if column && column.sites}
+  <h2 class={isSubColumn ? 'subColumn-title' : ''}>{column.title}</h2>
+  {#if column && column.sites}
+    <ul>
       {#each column.sites as site}
         <li>
           <a href={site.url} target="_self" rel="noopener">{site.name}</a>
         </li>
       {/each}
-    {/if}
-  </ul>
+    </ul>
+  {/if}
+  {#if column.subColumns}
+    {#each column.subColumns as subColumn}
+      <svelte:self column={subColumn} isSubColumn={true} />
+    {/each}
+  {/if}
 </aside>
 
 <style>
+  aside {
+    text-align: left;
+  }
+  .subColumn-title {
+    color: #ccc;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
   h2 {
     display: block;
     font-size: 1.3rem;
