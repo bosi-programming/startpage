@@ -9,6 +9,39 @@ export function updateSites(newSites) {
   sites.update(() => JSON.parse(newSites));
 }
 
+export function searchSites(text) {
+  let newSites = allSites.map((column) => filterSitesByName(text, column));
+  // Filter empty columns
+  newSites = newSites.filter(
+    (column) =>
+      (column.sites && column.sites.length !== 0) ||
+      column.subColumns.length !== 0
+  );
+  sites.update(() => newSites);
+}
+
+function filterSitesByName(name, columns) {
+  const clonedColumns = structuredClone(columns);
+  if (clonedColumns.sites) {
+    const filteredSites = clonedColumns.sites.filter((site) =>
+      site.name?.toLowerCase().includes(name.toLowerCase())
+    );
+    clonedColumns.sites = filteredSites;
+  }
+
+  if (clonedColumns.subColumns) {
+    clonedColumns.subColumns = clonedColumns.subColumns.map((subColumn) =>
+      filterSitesByName(name, subColumn)
+    );
+    // Remove empty subColumns
+    clonedColumns.subColumns = clonedColumns.subColumns.filter(
+      (subColumn) => subColumn.sites?.length !== 0
+    );
+  }
+
+  return clonedColumns;
+}
+
 export function updateColumn(newValue, index, field) {
   sites.update((oldSites) => {
     if (!oldSites[index]) {

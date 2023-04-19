@@ -1,5 +1,6 @@
 <script>
   import Column from "../components/Column.svelte";
+  import Search from "../components/Search.svelte";
 
   export let allMenus;
   export let handleOpenBuilder;
@@ -14,6 +15,7 @@
 
 {#if windowWidth < 1024}
   <div class="flex-div">
+    <Search />
     {#if allMenus && selectedCelMenu === null}
       {#each allMenus as menu, index}
         <button class="button" on:click={() => selectCelMenu(index)}>
@@ -30,6 +32,7 @@
     <button class="button" on:click={handleOpenBuilder}> Open Builder </button>
   </div>
 {:else}
+  <Search />
   <div class="flex-div__content">
     {#if allMenus}
       {#each allMenus as menu}

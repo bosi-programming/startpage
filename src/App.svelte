@@ -7,7 +7,6 @@
   let isBuilderOpen = false;
 
   sites.subscribe((value) => {
-    console.log(value);
     allSites = value;
   });
 
