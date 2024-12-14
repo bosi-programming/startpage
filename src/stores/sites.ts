@@ -3,15 +3,15 @@ import { getFromLocalStorage } from "$lib/getFromLocalStorage";
 
 const allSites = getFromLocalStorage("sites") || null;
 
-type Site = {
+type TSite = {
   url: string,
   name: string,
 }
 
-type Column = {
+export type TColumn = {
   title: string,
-  subColumns?: Column[],
-  sites?: Site[],
+  subColumns?: TColumn[],
+  sites?: TSite[],
 }
 
 export const sites = writable(allSites);
@@ -21,17 +21,17 @@ export function updateSites(newSites: string) {
 }
 
 export function searchSites(text: string) {
-  let newSites = allSites.map((column: Column) => filterSitesByName(text, column));
+  let newSites = allSites.map((column: TColumn) => filterSitesByName(text, column));
   // Filter empty columns
   newSites = newSites.filter(
-    (column: Column) =>
+    (column: TColumn) =>
       (column.sites && column.sites.length !== 0) ||
       column.subColumns?.length !== 0
   );
   sites.update(() => newSites);
 }
 
-function filterSitesByName(name: string, columns: Column) {
+function filterSitesByName(name: string, columns: TColumn) {
   const clonedColumns = structuredClone(columns);
   if (clonedColumns.sites) {
     const filteredSites = clonedColumns.sites.filter((site) =>
@@ -53,7 +53,7 @@ function filterSitesByName(name: string, columns: Column) {
   return clonedColumns;
 }
 
-export function updateColumn(newValue: Column, index: number, field: string) {
+export function updateColumn(newValue: TColumn, index: number, field: string) {
   sites.update((oldSites) => {
     if (!oldSites[index]) {
       oldSites[index] = { sites: [] };
@@ -87,7 +87,7 @@ export function deleteSite(siteIndex: number, selectedColumnIndex: number) {
   });
 }
 
-export function updateSite(newValue: Site, siteIndex: number, selectedColumnIndex: number, field: string) {
+export function updateSite(newValue: TSite, siteIndex: number, selectedColumnIndex: number, field: string) {
   sites.update((oldSites) => {
     const newSites = oldSites;
     const selectedColumn = oldSites[selectedColumnIndex];

@@ -1,9 +1,13 @@
 <script lang="ts">
 	import Column from '../components/Column.svelte';
 	import Search from '../components/Search.svelte';
+	import { sites, type TColumn } from '../stores/sites';
 
-	export let allMenus;
-	export let handleOpenBuilder;
+	let allSites: TColumn[];
+
+	sites.subscribe((value) => {
+		allSites = value;
+	});
 
 	const windowWidth = window.innerWidth;
 	let selectedCelMenu: number | null = null;
@@ -11,34 +15,36 @@
 	const selectCelMenu = (index: number | null) => {
 		selectedCelMenu = index;
 	};
+
+	const handleOpenBuilder = () => {};
 </script>
 
 {#if windowWidth < 1024}
 	<div class="flex-div">
 		<Search />
-		{#if allMenus && selectedCelMenu === null}
-			{#each allMenus as menu, index}
-				<button class="button" on:click={() => selectCelMenu(index)}>
+		{#if allSites && selectedCelMenu === null}
+			{#each allSites as menu, index}
+				<button class="button" onclick={() => selectCelMenu(index)}>
 					{menu.title}
 				</button>
 			{/each}
 		{/if}
 		{#if selectedCelMenu !== null}
-			<Column column={allMenus[selectedCelMenu]} />
-			<button class="button" on:click={() => selectCelMenu(null)}> Clear </button>
+			<Column column={allSites[selectedCelMenu]} />
+			<button class="button" onclick={() => selectCelMenu(null)}> Clear </button>
 		{/if}
-		<button class="button" on:click={handleOpenBuilder}> Open Builder </button>
+		<button class="button" onclick={handleOpenBuilder}> Open Builder </button>
 	</div>
 {:else}
 	<Search />
 	<div class="flex-div__content">
-		{#if allMenus}
-			{#each allMenus as menu}
+		{#if allSites}
+			{#each allSites as menu}
 				<Column column={menu} />
 			{/each}
 		{/if}
 	</div>
-	<button class="button" on:click={handleOpenBuilder}> Open Builder </button>
+	<button class="button" onclick={handleOpenBuilder}> Open Builder </button>
 {/if}
 
 <style>
