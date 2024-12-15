@@ -3,29 +3,40 @@
 	import FormEditor from '../../components/FormEditor/FormEditor.svelte';
 	import { saveSites } from '$lib/saveSites';
 	import { exportFileToLocalStorage } from '$lib/exportFileToLocalStorage.js';
+	import { sites, type TColumn } from '../../stores/sites';
+	import { goto } from '$app/navigation';
 
-	export let allSites;
-	export let handleOpenBuilder;
+	let allSites: TColumn[] = $state([]);
 
-	let selectedBuilder = 'form';
+	sites.subscribe((value) => {
+		allSites = value;
+	});
 
-	const pushSitesToLocalStorage = () => {
+	let selectedBuilder = $state('form');
+
+	const pushSitesToLocalStorage = (e: Event) => {
+		e.preventDefault();
 		localStorage.removeItem('sites');
 		localStorage.setItem('sites', JSON.stringify(allSites));
-		handleOpenBuilder();
 	};
 
 	const pushFileToLocalStorage = (e: Event) => {
+		e.preventDefault();
 		exportFileToLocalStorage(e, 'sites');
 		location.reload();
 	};
 
-	const changeBuilder = () => {
+	const changeBuilder = (e: Event) => {
+		e.preventDefault();
 		if (selectedBuilder === 'form') {
 			selectedBuilder = 'json';
 		} else {
 			selectedBuilder = 'form';
 		}
+	};
+
+	const handleCloseBuilder = () => {
+		goto('/');
 	};
 </script>
 
@@ -35,22 +46,18 @@
 {:else}
 	<JsonEditor allMenus={allSites} />
 {/if}
-<button
-	class="button button-center"
-	type="submit"
-	on:click|preventDefault={pushSitesToLocalStorage}
->
+<button class="button button-center" type="submit" onclick={pushSitesToLocalStorage}>
 	Submit
 </button>
 <div>
-	<button class="button" on:click={handleOpenBuilder}> Close Builder </button>
-	<button class="button" on:click|preventDefault={changeBuilder}>
+	<button class="button" onclick={handleCloseBuilder}> Close Builder </button>
+	<button class="button" onclick={changeBuilder}>
 		{selectedBuilder === 'form' ? 'JSON' : 'Form'} Builder
 	</button>
 </div>
 <div>
-	<button class="button" on:click|preventDefault={saveSites}> Export sites </button>
-	<input class="button" type="file" id="import" accept=".json" on:change={pushFileToLocalStorage} />
+	<button class="button" onclick={saveSites}> Export sites </button>
+	<input class="button" type="file" id="import" accept=".json" onchange={pushFileToLocalStorage} />
 </div>
 
 <style>

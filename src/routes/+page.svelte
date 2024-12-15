@@ -1,25 +1,29 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import { MediaQuery } from 'svelte/reactivity';
 	import Column from '../components/Column.svelte';
 	import Search from '../components/Search.svelte';
 	import { sites, type TColumn } from '../stores/sites';
 
-	let allSites: TColumn[];
+	let allSites: TColumn[] = $state([]);
 
 	sites.subscribe((value) => {
 		allSites = value;
 	});
 
-	const windowWidth = window.innerWidth;
-	let selectedCelMenu: number | null = null;
+	const isDesktop = new MediaQuery('min-width: 1024px');
+	let selectedCelMenu: number | null = $state(null);
 
 	const selectCelMenu = (index: number | null) => {
 		selectedCelMenu = index;
 	};
 
-	const handleOpenBuilder = () => {};
+	const handleOpenBuilder = () => {
+		goto('/editor');
+	};
 </script>
 
-{#if windowWidth < 1024}
+{#if !isDesktop.current}
 	<div class="flex-div">
 		<Search />
 		{#if allSites && selectedCelMenu === null}

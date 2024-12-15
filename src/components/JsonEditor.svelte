@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { updateSites, type TColumn } from '../stores/sites.js';
 	interface Props {
-		allMenus: TColumn;
+		allMenus: TColumn[];
 	}
 	const { allMenus }: Props = $props();
 

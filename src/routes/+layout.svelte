@@ -7,8 +7,8 @@
 	{@render children()}
 </main>
 
-<style>
-	:global(.flex-div) {
+<style global>
+	.flex-div {
 		height: 100%;
 		text-align: center;
 		padding: unset;
@@ -16,9 +16,8 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-	}
+
 	@media (min-width: 1023px) {
-		:global(.flex-div) {
 			max-width: 100%;
 		}
 	}

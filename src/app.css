@@ -1,3 +1,86 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
-@import 'tailwindcss/utilities'
+@import 'tailwindcss/utilities';
+
+h1 {
+  color: blue;
+}
+
+.btn {
+  background-color: black;
+  color: deepskyblue;
+  border: lightblue 1px solid;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: deepskyblue;
+  color: black;
+}
+.menuCel {
+  padding-top: 2em;
+}
+.btn-nav {
+  height: 2em;
+  width: 10em;
+  display: block;
+  margin: auto;
+  margin-top: 1em;
+}
+.clearCel,
+.clearDesktop {
+  display: none;
+  margin-bottom: 2em;
+}
+main {
+  text-align: center;
+  padding: 0;
+}
+a {
+  color: deepskyblue;
+  text-decoration: none;
+  display: block;
+  padding: 0.5em 0;
+}
+a:hover,
+a:focus {
+  color: gray;
+}
+aside {
+  display: none;
+}
+#howToTea {
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 800px) {
+  body {
+    margin: 0 2em;
+  }
+  #google input {
+    width: 75%;
+  }
+  main {
+    display: flex;
+    padding-top: 2em;
+  }
+  aside {
+    display: block;
+    width: Calc(100% / 5);
+  }
+  nav {
+    display: none;
+  }
+  #howToTea {
+    display: inline;
+  }
+  #butInstall {
+    display: none;
+  }
+  .teaText {
+    display: block;
+    margin: 2em auto;
+    width: 50%;
+  }
+}

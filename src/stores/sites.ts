@@ -53,7 +53,7 @@ function filterSitesByName(name: string, columns: TColumn) {
   return clonedColumns;
 }
 
-export function updateColumn(newValue: TColumn, index: number, field: string) {
+export function updateColumn(newValue: string, index: number, field: string) {
   sites.update((oldSites) => {
     if (!oldSites[index]) {
       oldSites[index] = { sites: [] };
@@ -87,7 +87,7 @@ export function deleteSite(siteIndex: number, selectedColumnIndex: number) {
   });
 }
 
-export function updateSite(newValue: TSite, siteIndex: number, selectedColumnIndex: number, field: string) {
+export function updateSite(newValue: string, siteIndex: number, selectedColumnIndex: number, field: string) {
   sites.update((oldSites) => {
     const newSites = oldSites;
     const selectedColumn = oldSites[selectedColumnIndex];
