@@ -3,22 +3,8 @@
 	let { children } = $props();
 </script>
 
-<main class="flex-div">
+<main
+	class="text-center mx-auto my-0 flex h-screen w-screen flex-col justify-center bg-background-on-light px-8 dark:bg-background-on-dark"
+>
 	{@render children()}
 </main>
-
-<style global>
-	.flex-div {
-		height: 100%;
-		text-align: center;
-		padding: unset;
-		margin: 0 auto;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-
-	@media (min-width: 1023px) {
-			max-width: 100%;
-		}
-	}
-</style>

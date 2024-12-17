@@ -9,13 +9,25 @@
 	const { column, isSubColumn = false }: Props = $props();
 </script>
 
-<aside id={column.title}>
-	<h2 class={isSubColumn ? 'subColumn-title' : ''}>{column.title}</h2>
+<aside class="text-left" id={column.title}>
+	{#if isSubColumn}
+		<h3 class="mx-0 my-4 text-h4 font-bold text-gray-15 dark:text-gray-93">{column.title}</h3>
+	{:else}
+		<h2 class="mx-0 my-4 text-h3 font-bold text-secondary-on-light dark:text-secondary-on-dark">
+			{column.title}
+		</h2>
+	{/if}
 	{#if column && column.sites}
-		<ul>
+		<ul class="list-none p-0">
 			{#each column.sites as site}
-				<li>
-					<a href={site.url} target="_self" rel="noopener">{site.name}</a>
+				<li class="m-0 p-0 border-0">
+					<a
+						href={site.url}
+						target="_self"
+						rel="noopener"
+						class="block px-0 py-2 text-details text-primary-on-light dark:text-primary-on-dark"
+						>{site.name}</a
+					>
 				</li>
 			{/each}
 		</ul>
@@ -26,42 +38,3 @@
 		{/each}
 	{/if}
 </aside>
-
-<style>
-	aside {
-		text-align: left;
-	}
-	.subColumn-title {
-		color: #ccc;
-		font-size: 1.1rem;
-		font-weight: bold;
-	}
-	h2 {
-		display: block;
-		font-size: 1.3rem;
-		margin-block-start: 0.83em;
-		margin-block-end: 0.83em;
-		margin-inline-start: 0px;
-		margin-inline-end: 0px;
-		font-weight: bold;
-	}
-	a {
-		font-size: 0.9rem;
-		color: deepskyblue;
-		text-decoration: none;
-		display: block;
-		padding: 0.5em 0;
-	}
-	ul {
-		list-style: none;
-		padding-left: 0;
-	}
-	li {
-		margin: 0;
-		padding: 0;
-		border: 0;
-		font-size: 100%;
-		font: inherit;
-		vertical-align: baseline;
-	}
-</style>
