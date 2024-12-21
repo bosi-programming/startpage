@@ -24,10 +24,10 @@
 				updateColumn((e.target as HTMLInputElement).value, selectedColumnIndex, 'title')}
 		/>
 	</div>
-	<ul>
+	<ul class="list-none pl-0">
 		{#if selectedColumn && selectedColumn.sites}
 			{#each selectedColumn.sites as site, siteIndex}
-				<li>
+				<li class="m-0 rounded-none p-0 align-baseline">
 					<input
 						type="url"
 						placeholder="URL"
@@ -71,18 +71,6 @@
 </aside>
 
 <style>
-	ul {
-		list-style: none;
-		padding-left: 0;
-	}
-	li {
-		margin: 0;
-		padding: 0;
-		border: 0;
-		font-size: 100%;
-		font: inherit;
-		vertical-align: baseline;
-	}
 	.button {
 		background-color: rgb(35, 35, 60);
 		color: white;
