@@ -41,33 +41,17 @@
 	</div>
 {:else}
 	<Search />
-	<div class="flex-div__content">
+	<div class="lg:flex lg:justify-evenly">
 		{#if allSites}
 			{#each allSites as menu}
 				<Column column={menu} />
 			{/each}
 		{/if}
 	</div>
-	<button class="button" onclick={handleOpenBuilder}> Open Builder </button>
+	<button
+		class="button mx-auto my-4 w-64 cursor-pointer rounded bg-secondary-on-light p-1 text-white dark:bg-secondary-on-dark"
+		onclick={handleOpenBuilder}
+	>
+		Open Builder
+	</button>
 {/if}
-
-<style>
-	.button {
-		background-color: rgb(35, 35, 60);
-		color: white;
-		border: 1px solid #3c8db9;
-		border-radius: 8px;
-		cursor: pointer;
-		width: 250px;
-		margin: 16px auto;
-	}
-	.button:active {
-		background-color: rgb(45, 45, 70);
-	}
-	@media (min-width: 1023px) {
-		.flex-div__content {
-			display: flex;
-			justify-content: space-evenly;
-		}
-	}
-</style>
