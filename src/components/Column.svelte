@@ -25,7 +25,7 @@
 						href={site.url}
 						target="_self"
 						rel="noopener"
-						class="block px-0 py-2 text-details text-primary-on-light dark:text-primary-on-dark"
+						class="block px-0 py-1.5 text-details text-primary-on-light dark:text-primary-on-dark"
 						>{site.name}</a
 					>
 				</li>
