@@ -7,6 +7,9 @@ export interface TypographyProps {
   color?: TColor;
   size?: TSize;
   className?: string;
-  as?: 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'details';
+  as?: 'a' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'details';
   children: Snippet | string;
+  href?: string;
+  target?: HTMLAnchorElement['target'];
+  rel?: HTMLAnchorElement['rel'];
 }

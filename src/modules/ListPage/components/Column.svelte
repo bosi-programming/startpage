@@ -1,6 +1,8 @@
 <script lang="ts">
-	import type { TColumn } from '../stores/sites';
+	import type { TColumn } from '@/stores/sites';
 	import Column from './Column.svelte';
+	import Typography from '@/components/Typography/Typography.svelte';
+	import ItemSite from './ItemSite.svelte';
 
 	interface Props {
 		column: TColumn;
@@ -11,24 +13,14 @@
 
 <aside class="text-left" id={column.title}>
 	{#if isSubColumn}
-		<h3 class="mx-0 my-4 text-h4 font-bold text-gray-15 dark:text-gray-93">{column.title}</h3>
+		<Typography size="h3" className="mb-2">{column.title}</Typography>
 	{:else}
-		<h2 class="mx-0 my-4 text-h3 font-bold text-secondary-on-light dark:text-secondary-on-dark">
-			{column.title}
-		</h2>
+		<Typography size="h2" color="secondary" className="mb-2">{column.title}</Typography>
 	{/if}
 	{#if column && column.sites}
 		<ul class="list-none p-0">
 			{#each column.sites as site}
-				<li class="m-0 p-0 border-0">
-					<a
-						href={site.url}
-						target="_self"
-						rel="noopener"
-						class="block px-0 py-1.5 text-details text-primary-on-light dark:text-primary-on-dark"
-						>{site.name}</a
-					>
-				</li>
+        <ItemSite {site} />
 			{/each}
 		</ul>
 	{/if}

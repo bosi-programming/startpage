@@ -3,7 +3,7 @@ import { getFromLocalStorage } from "$lib/getFromLocalStorage";
 
 const allSites = getFromLocalStorage("sites") || null;
 
-type TSite = {
+export type TSite = {
   url: string,
   name: string,
 }
