@@ -24,20 +24,23 @@
 	};
 </script>
 
-<Typography size="h1">Personalize your startpage</Typography>
-{#if selectedBuilder === 'form'}
-	<FormEditor allSites={allSites.allSites} />
-{:else}
-	<JsonEditor allMenus={allSites.allSites} />
-{/if}
-<Button
-	size="small"
-	color="secondary"
-	className="size-fit mx-auto"
-	onclick={(e: Event) => pushSitesToLocalStorage(e, allSites.allSites)}>Submit</Button
->
+<div class="mb-16">
+	<Typography color="secondary" size="h1" className="mb-16">Personalize your startpage</Typography>
+	{#if selectedBuilder === 'form'}
+		<FormEditor allSites={allSites.allSites} />
+	{:else}
+		<JsonEditor allMenus={allSites.allSites} />
+	{/if}
+	<div class="mt-4">
+		<Button onclick={handleCloseBuilder} className="mr-4" action="error">Close Builder</Button>
+		<Button
+			action="success"
+			className="size-fit mx-auto"
+			onclick={(e: Event) => pushSitesToLocalStorage(e, allSites.allSites)}>Submit</Button
+		>
+	</div>
+</div>
 <div class="my-4">
-	<Button onclick={handleCloseBuilder} className="mr-4">Close Builder</Button>
 	<Button onclick={changeBuilder}>
 		{selectedBuilder === 'form' ? 'JSON' : 'Form'} Builder
 	</Button>
