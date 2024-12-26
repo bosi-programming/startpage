@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { updateSites, type TColumn } from '../stores/sites.js';
+	import { updateSites, type TColumn } from '@/stores/sites';
+
 	interface Props {
 		allMenus: TColumn[];
 	}
@@ -12,5 +13,5 @@
 	cols={windowWidth < 1024 ? 30 : 100}
 	rows="30"
 	value={JSON.stringify(allMenus, null, 2)}
-  onchange={(event: Event) => updateSites((event.target as HTMLTextAreaElement)?.value)}
+	onchange={(event: Event) => updateSites((event.target as HTMLTextAreaElement)?.value)}
 ></textarea>

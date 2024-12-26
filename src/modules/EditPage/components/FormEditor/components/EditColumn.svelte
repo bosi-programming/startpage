@@ -5,7 +5,7 @@
 		updateSite,
 		deleteSite,
 		type TColumn
-	} from '../../../stores/sites';
+	} from '@/stores/sites';
 
 	interface Props {
 		selectedColumn: TColumn;
@@ -89,3 +89,4 @@
 		margin: 16px auto 32px auto;
 	}
 </style>
+

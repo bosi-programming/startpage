@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { updateColumn, type TColumn } from '../../stores/sites.js';
+	import { updateColumn, type TColumn } from '@/stores/sites.js';
 	import EditColumn from './components/EditColumn.svelte';
 
 	interface Props {
@@ -35,9 +35,6 @@
 		<option value="new">Add new column</option>
 	</select>
 	{#if allSites && allSites[selectedColumn]}
-		<EditColumn
-			selectedColumnIndex={selectedColumn}
-			selectedColumn={allSites[selectedColumn]}
-		/>
+		<EditColumn selectedColumnIndex={selectedColumn} selectedColumn={allSites[selectedColumn]} />
 	{/if}
 </main>
