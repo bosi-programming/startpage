@@ -9,8 +9,8 @@ export const actionClasses = {
 
 export const colorsClasses = {
   default: actionClasses['info'],
-  primary: 'bg-primary-on-light text-white dark:bg-primary-on-dark',
-  secondary: 'bg-secondary-on-light text-white dark:bg-secondary-on-dark',
+  primary: 'bg-primary-on-light text-white dark:bg-primary-on-dark dark:text-black',
+  secondary: 'bg-secondary-on-light text-white dark:bg-secondary-on-dark dark:text-black',
 }
 
 export const sizeClasses = {

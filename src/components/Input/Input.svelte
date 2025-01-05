@@ -1,25 +1,19 @@
 <script lang="ts">
-  import type { HTMLInputAttributes } from 'svelte/elements';
+	import type { HTMLInputAttributes } from 'svelte/elements';
 
-  const {
-    labelChildren,
-    ...rest
-  }: {
-    labelChildren?: string;
-    className?: string;
-  } & HTMLInputAttributes = $props();
+	const {
+		placeholder,
+		...rest
+	}: {
+		placeholder?: string;
+		className?: string;
+	} & HTMLInputAttributes = $props();
 </script>
 
 <input
-  aria-label={labelChildren}
-  placeholder={labelChildren}
-  type="text"
-  {...rest}
-  class={`bg-gray-50 border border-gray-300 text-gray-900
-           text-sm rounded-lg focus:ring-blue-500
-          focus:border-blue-500 p-2.5 dark:bg-green dark:border-emerald
-          outline-none
-          dark:placeholder-peach dark:text-peach 
-          dark:focus:ring-emerald
-          dark:focus:border-emerald ${rest.className}`}
+	aria-label={placeholder}
+	{placeholder}
+	type="text"
+	{...rest}
+	class={`bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg border px-2 py-1 outline-none placeholder:text-slate-400 focus:border-blue-500 focus:ring-blue-500 dark:border-emerald dark:bg-green dark:text-peach placeholder:italic dark:focus:border-emerald dark:focus:ring-emerald ${rest.className}`}
 />
