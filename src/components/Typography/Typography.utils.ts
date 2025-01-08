@@ -7,6 +7,9 @@ export function colorClass(color: TypographyProps['color']) {
   if (color === 'secondary') {
     return 'text-secondary-on-light dark:text-secondary-on-dark';
   }
+  if (color === 'error') {
+    return 'text-error dark:text-error-on-dark';
+  }
   return 'light:text-black dark:text-gray-93';
 }
 

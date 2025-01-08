@@ -31,6 +31,7 @@ export default {
       "secondary-on-dark": pink,
       success: "#14662d",
       error: "#741427",
+      'error-on-dark': "#EF5350",
       warning: "#c2530a",
       info: "#3a5683",
       "background-on-dark": green,
