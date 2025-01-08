@@ -15,8 +15,8 @@ export const colorsClasses = {
 
 export const sizeClasses = {
   small: 'px-4 py-2',
-  medium: 'px-8 py-3',
-  'full-width': 'w-full px-8 py-3',
+  medium: 'px-8 py-2',
+  'full-width': 'w-full px-8 py-2',
 }
 
 

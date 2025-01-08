@@ -5,4 +5,4 @@
 	let { form }: { form: ActionData } = $props();
 </script>
 
-<Auth {form} />
+<Auth {form} isRegisterPage={true} />
