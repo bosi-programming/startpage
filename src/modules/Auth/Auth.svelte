@@ -11,15 +11,6 @@
 	const isMissingEmail = form?.isMissingEmail;
 	const isMissingPassword = form?.isMissingPassword;
 	const email = form?.email;
-
-	$effect(() => {
-		const success = form?.success;
-		if (success) {
-      // todo change from token to cookies
-			const token = form?.token;
-			goto('/');
-		}
-	});
 </script>
 
 <Typography size="h1" className="mb-10" color="secondary">
@@ -50,4 +41,9 @@
 	>
 		{isRegisterPage ? 'Go to login page' : 'Go to register page'}
 	</Button>
+	{#if !isMissingPassword && !isMissingEmail && form && form.message}
+		<Typography size="details" color="error" className="mt-1 text-left">
+			{form.message}
+		</Typography>
+	{/if}
 </form>

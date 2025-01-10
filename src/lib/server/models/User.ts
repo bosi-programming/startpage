@@ -1,12 +1,13 @@
-import { hashPassword } from "../auth/password";
+import { hashPassword } from "../utils/auth/password";
 import { userRepository } from "../repositories";
 import { User as UserModel } from "../entities/User"
 
 export class User {
   public static async createUser(email: string, password: string): Promise<[{ errorCode: number, errorMessage: string } | null, UserModel | null]> {
-    const hasUser = Boolean(await this.getUserByEmail(email));
+    const [, user] = await this.getUserByEmail(email);
+    const hasUser = Boolean(user)
     if (hasUser) {
-      return [{errorCode: 400, errorMessage: "User already exist" }, null];
+      return [{ errorCode: 400, errorMessage: "User already exist" }, null];
     }
     const passwordHash = await hashPassword(password);
     const newUser = userRepository.create({ email, password: passwordHash });
