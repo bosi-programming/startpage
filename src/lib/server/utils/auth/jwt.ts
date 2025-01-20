@@ -11,13 +11,16 @@ export function createToken(userId: number) {
 
 export function verifyToken(token: string) {
   try {
-    return jwt.verify(token, PRIVATE_SECRET);
-  } catch (e) {
-    console.error(e);
+    return [null, jwt.verify(token, PRIVATE_SECRET) as JwtPayload];
+  } catch (error) {
+    return [{ errorCode: 500, error }, null]
   }
 }
 
 export function getUserIdFromToken(token: string) {
-  const decodedToken = verifyToken(token) as JwtPayload;
-  return decodedToken.id
+  const [error, decodedToken] = verifyToken(token);
+  if (error) {
+    return [error, null]
+  }
+  return [null, decodedToken!.id]
 }

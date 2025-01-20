@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Config } from "./Config";
 
 @Entity()
 export class User {
@@ -10,6 +11,10 @@ export class User {
 
   @Column('text', { nullable: false })
   password: string;
+
+  @OneToOne(() => Config)
+  @JoinColumn()
+  config?: Config;
 }
 
 

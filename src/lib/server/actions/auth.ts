@@ -1,7 +1,7 @@
 import { fail, redirect, type RequestEvent } from "@sveltejs/kit";
-import { User } from "../models/User";
-import { createToken } from "../utils/auth/jwt";
-import { setSessionTokenCookie } from "../utils/auth/cookies";
+import { userModel } from "../models/User";
+import { createToken, } from "../utils/auth/jwt";
+import {  setSessionTokenCookie } from "../utils/auth/cookies";
 import { verifyPassword } from "../utils/auth/password";
 
 export async function authAction({ request, cookies }: RequestEvent, type: 'LOGIN' | 'REGISTER') {
@@ -15,7 +15,7 @@ export async function authAction({ request, cookies }: RequestEvent, type: 'LOGI
     return fail(400, { message: "Please type your password", isMissingPassword: !password, email });
   }
 
-  const [error, user] = type === 'REGISTER' ? await User.createUser(email, password) : await User.getUserByEmail(email);
+  const [error, user] = type === 'REGISTER' ? await userModel.createUser(email, password) : await userModel.getUserByEmail(email);
   if (error) {
     return fail(error.errorCode, { message: error.errorMessage });
   }
@@ -29,3 +29,4 @@ export async function authAction({ request, cookies }: RequestEvent, type: 'LOGI
   }
   return { success: false, message: 'Unknown error, please try again' }
 }
+

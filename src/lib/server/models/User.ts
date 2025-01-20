@@ -1,24 +1,29 @@
 import { hashPassword } from "../utils/auth/password";
 import { userRepository } from "../repositories";
-import { User as UserModel } from "../entities/User"
+import { User as UserEntity } from "../entities/User"
+import { BaseModel } from "./BaseModel";
 
-export class User {
-  public static async createUser(email: string, password: string): Promise<[{ errorCode: number, errorMessage: string } | null, UserModel | null]> {
+class User extends BaseModel<UserEntity> {
+  public async createUser(email: string, password: string): Promise<[{ errorCode: number, errorMessage: string } | null, UserEntity | null]> {
     const [, user] = await this.getUserByEmail(email);
     const hasUser = Boolean(user)
     if (hasUser) {
       return [{ errorCode: 400, errorMessage: "User already exist" }, null];
     }
     const passwordHash = await hashPassword(password);
-    const newUser = userRepository.create({ email, password: passwordHash });
-    await userRepository.save(newUser);
-    return [null, newUser]
+    return await this.create({ email, password: passwordHash });
   }
-  public static async getUserByEmail(email: string): Promise<[{ errorCode: number, errorMessage: string } | null, UserModel | null]> {
-    const user = await userRepository.findOneBy({ email });
+  public async getUserByEmail(email: string): Promise<[{ errorCode: number, errorMessage: string } | null, UserEntity | null]> {
+    try {
+    const user = await this.repository.findOneBy({ email });
     if (!user) {
       return [{ errorCode: 400, errorMessage: "User not found" }, null];
     }
     return [null, user];
+    } catch {
+      return [{ errorCode: 500, errorMessage: "Server error" }, null];
+    }
   }
 }
+
+export const userModel = new User(userRepository);

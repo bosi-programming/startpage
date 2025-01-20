@@ -1,4 +1,5 @@
-import type { Cookies } from "@sveltejs/kit";
+import { redirect, type Cookies} from "@sveltejs/kit";
+import { getUserIdFromToken } from "./jwt";
 
 export function setSessionTokenCookie(cookies: Cookies, token: string): void {
   cookies.set("session", token, {
@@ -19,4 +20,14 @@ export function deleteSessionTokenCookie(cookies: Cookies): void {
     maxAge: 0,
     path: "/"
   });
+}
+
+export function getUserIdFromCookies(cookies: Cookies) {
+  const token = getSessionTokenCookie(cookies) || '';
+  const [error, userId] = getUserIdFromToken(token)
+
+  if (error || !userId) {
+    redirect(303, '/login')
+  }
+  return userId
 }

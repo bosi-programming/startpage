@@ -6,6 +6,6 @@ type LoginAction = Promise<ActionFailure<{ message: string, isMissingEmail?: boo
 
 export const actions = {
   default: async (requestEvent): LoginAction => {
-    return authAction(requestEvent, 'REGISTER');
+    return authAction(requestEvent, 'LOGIN');
   }
 } satisfies Actions
