@@ -1,5 +1,7 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Config } from "./Config";
+import { Page } from "./Page";
+import { SitesColumn } from "./Column";
 
 @Entity()
 export class User {
@@ -15,6 +17,12 @@ export class User {
   @OneToOne(() => Config)
   @JoinColumn()
   config?: Config;
+
+  @OneToMany(() => Page, (page) => page.user, { cascade: true })
+  pages?: Page[];
+
+  @OneToMany(() => SitesColumn, (column) => column.user, { cascade: true })
+  columns?: SitesColumn[];
 }
 
 

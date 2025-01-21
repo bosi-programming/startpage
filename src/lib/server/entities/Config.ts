@@ -10,6 +10,6 @@ export class Config {
   @OneToOne(() => User)
   user: User;
 
-  @OneToMany(() => Page, (page) => page.config, { cascade: true })
+  @OneToMany(() => Page, (page) => page.config, { cascade: true, eager: true })
   pages: Page[];
 }
