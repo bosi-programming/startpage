@@ -1,11 +1,14 @@
 import type { PageServerLoad } from './$types';
-import { fail } from '@sveltejs/kit';
 import { loadUserConfig } from '@/lib/server/actions/loadUserConfig';
+import type { Config } from '@/lib/server/entities/Config';
+import { error } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async ({ cookies }) => {
-  const [error, userConfig] = await loadUserConfig(cookies)
-  if (error) {
-    fail(error.errorCode, { message: error.errorMessage})
+type LoadAction = Promise<Config>
+
+export const load: PageServerLoad = async ({ cookies }): LoadAction => {
+  const [userError, userConfig] = await loadUserConfig(cookies)
+  if (userError) {
+    return error(userError.errorCode, { message: userError.errorMessage })
   }
-  return userConfig;
+  return userConfig as Config;
 };

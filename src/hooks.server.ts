@@ -2,3 +2,23 @@ import "reflect-metadata"
 import { TypeOrm } from "$lib/server/database";
 
 await TypeOrm.getDb();
+
+import { error, type Handle } from '@sveltejs/kit';
+import { getUserIdFromCookies } from "./lib/server/utils/auth/cookies";
+import { userModel } from "./lib/server/models/User";
+const NON_LOGGED_ROUTES = ['/login', '/register'];
+
+export const handle: Handle = async ({ event, resolve }) => {
+  if (NON_LOGGED_ROUTES.includes(event.route.id as string)) {
+    return await resolve(event)
+  }
+  const userId = getUserIdFromCookies(event.cookies);
+  const [userError] = await userModel.getById(userId, userId);
+
+  if (userError) {
+    error(userError.errorCode, { message: userError.errorMessage });
+  }
+
+  const response = await resolve(event);
+  return response;
+}
