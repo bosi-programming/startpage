@@ -16,7 +16,7 @@ export class SitesColumn {
   @Column('simple-json')
   sites: { name: string, url: string }[]
 
-  @ManyToOne(() => Page, (page) => page.columns, { cascade: true })
+  @ManyToOne(() => Page, (page) => page.columns)
   @JoinColumn()
   page: Page
 }
