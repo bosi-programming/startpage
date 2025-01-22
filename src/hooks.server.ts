@@ -3,7 +3,7 @@ import { TypeOrm } from "$lib/server/database";
 
 await TypeOrm.getDb();
 
-import { error, type Handle } from '@sveltejs/kit';
+import { redirect, type Handle } from '@sveltejs/kit';
 import { getUserIdFromCookies } from "./lib/server/utils/auth/cookies";
 import { userModel } from "./lib/server/models/User";
 const NON_LOGGED_ROUTES = ['/login', '/register'];
@@ -16,7 +16,8 @@ export const handle: Handle = async ({ event, resolve }) => {
   const [userError] = await userModel.getById(userId, userId);
 
   if (userError) {
-    error(userError.errorCode, { message: userError.errorMessage });
+    event.cookies.delete("session", {path: "/"})
+    redirect(400, '/login')
   }
 
   const response = await resolve(event);
