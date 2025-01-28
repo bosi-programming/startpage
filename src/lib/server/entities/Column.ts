@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Page } from "./Page";
 import { User } from "./User";
 
@@ -19,5 +19,13 @@ export class SitesColumn {
   @ManyToOne(() => Page, (page) => page.columns)
   @JoinColumn()
   page: Page
+
+  @ManyToOne(() => SitesColumn, (column) => column.subcolumns)
+  @JoinColumn()
+  superColumn?: SitesColumn
+
+  @OneToMany(() => SitesColumn, (column) => column.superColumn, { cascade: true, eager: true })
+  @JoinColumn()
+  subcolumns?: SitesColumn[];
 }
 

@@ -1,9 +1,9 @@
-import { sites, type TColumn } from "@/stores/sites";
+import { sites, type TPage } from "@/stores/sites";
 
-export const allSites: { allSites: TColumn[] } = $state({ allSites: [] });
+export const config: { allSites: { pages: TPage[] }} = $state({ allSites: { pages: [] }});
 
 sites.subscribe((value) => {
-  allSites.allSites = value;
+  config.allSites = value;
 });
 
 

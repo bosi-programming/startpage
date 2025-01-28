@@ -3,6 +3,11 @@ import { getFromLocalStorage } from "$lib/getFromLocalStorage";
 
 const allSites = getFromLocalStorage("sites") || null;
 
+export type TPage = {
+  title: string,
+  sitesColumns: TColumn[]
+}
+
 export type TSite = {
   url: string,
   name: string,
