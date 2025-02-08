@@ -10,7 +10,6 @@ export const pushSitesToLocalStorage = (e: Event, allSites: TColumn[]) => {
 export const pushFileToLocalStorage = (e: Event) => {
   e.preventDefault();
   exportFileToLocalStorage(e, 'sites');
-  location.reload();
 };
 
 

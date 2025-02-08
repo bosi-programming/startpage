@@ -1,3 +1,5 @@
+import { updateSites } from "@/stores/sites";
+
 export const exportFileToLocalStorage = (event: Event, localStorageLocation: string) => {
   const element = event.currentTarget as HTMLInputElement;
   const files: FileList | null = element.files;
@@ -15,6 +17,7 @@ export const exportFileToLocalStorage = (event: Event, localStorageLocation: str
         }
         localStorage.removeItem(localStorageLocation);
         localStorage.setItem(localStorageLocation, newMenus);
+        updateSites(newMenus);
       }
     });
     reader.readAsText(file);
