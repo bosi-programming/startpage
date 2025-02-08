@@ -8,9 +8,9 @@
 - [x] Adicionar suporte a multipage
     - [x] Adicionar página de config (config de colunas por páginas)
     - [x] Adicionar suport a config multipage no FE sem mudar design
-    - [ ] Adicionar suport a multipage no FE
+    - [x] Adicionar suport a multipage no FE
         - [x] Adicionar botões de Next e Previous na versão desktop
-        - [ ] Adicionar botões de Next e Previous na versão mobile
+        - [x] Adicionar botões de Next e Previous na versão mobile
 - [ ] Melhorar editor de links
 - [ ] Adicionar Zod nos forms
     - [ ] Adicionar Zod no form de sign in
