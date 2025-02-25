@@ -17,7 +17,7 @@ export class BaseModel<T extends ObjectLiteral> {
     }
   }
 
-  public async getById(id: number, userId: number): Promise<[{ errorCode: number, errorMessage: string } | null, T | null]> {
+  public async getById(id: number, userId: number): Promise<[{ errorCode: number, errorMessage: string }, null] | [null, T]> {
     try {
       const entity = await this.repository.findOneBy({ id } as unknown as FindOptionsWhere<T>);
       if (!entity) {
@@ -25,7 +25,7 @@ export class BaseModel<T extends ObjectLiteral> {
       }
       const [error, isUserOwner] = this.checkOwnership(entity, userId);
       if (error || !isUserOwner) {
-        return [error, null];
+        return [error || {errorCode: 400, errorMessage: 'User is not owner'}, null];
       }
       return [null, entity];
     } catch {
