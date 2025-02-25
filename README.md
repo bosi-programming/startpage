@@ -6,6 +6,7 @@
     - [x] Fazer banco de dados para a config
     - [ ] Salvar o json no banco de dados no upload
         - [x] Criar função de save config no BE
+        - [x] Criar função de save config no FE
         - [ ] Chamar o save config no FE no submit
 - [x] Adicionar suporte a multipage
     - [x] Adicionar página de config (config de colunas por páginas)
