@@ -20,6 +20,7 @@ export async function authAction({ request, cookies }: RequestEvent, type: 'LOGI
     return fail(error.errorCode, { message: error.errorMessage });
   }
   if (user) {
+    console.log({user})
     const token = createToken(user.id);
     const isPasswordCorrect = type === 'LOGIN' ? await verifyPassword(user.password, password) : true;
     if (token && isPasswordCorrect) {

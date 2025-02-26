@@ -32,9 +32,9 @@
     >Personalize your startpage</Typography
   >
   {#if selectedBuilder === 'form'}
-    <FormEditor allSites={config.allSites.pages} />
+    <FormEditor allSites={config.allSites?.pages} />
   {:else}
-    <JsonEditor allMenus={config.allSites.pages} />
+    <JsonEditor allMenus={config.allSites?.pages} />
   {/if}
   <div class="mt-4">
     <Button onclick={handleCloseBuilder} className="mr-4" action="error"

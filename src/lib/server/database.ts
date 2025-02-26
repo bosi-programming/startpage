@@ -2,8 +2,6 @@ import "reflect-metadata"
 import { User } from "@/lib/server/entities/User"
 import { DataSource } from "typeorm"
 import { Config } from "./entities/Config";
-import { Page } from "./entities/Page";
-import { SitesColumn } from "./entities/Column";
 
 export class TypeOrm {
   private static instance: Promise<DataSource | null> | null = null;
@@ -17,7 +15,7 @@ export class TypeOrm {
       TypeOrm.instance = new DataSource({
         type: "sqlite",
         database: "database",
-        entities: [User, Config, SitesColumn, Page],
+        entities: [User, Config],
         synchronize: true,
         logging: false,
       })

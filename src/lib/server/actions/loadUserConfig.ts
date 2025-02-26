@@ -5,7 +5,7 @@ import type { Config } from "../entities/Config";
 
 export async function loadUserConfig(cookies: Cookies): Promise<[{ errorCode: number, errorMessage: string } | null, Config | null]> {
   const userId = getUserIdFromCookies(cookies);
-  const [userError, user] = await userModel.getById(userId, userId);
+  const [userError, user] = await userModel.getById(userId);
   if (userError) {
     return [userError, null]
   }

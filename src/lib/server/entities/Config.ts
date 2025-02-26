@@ -1,4 +1,4 @@
-import { Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn, type Relation } from "typeorm";
 import { Page } from "./Page";
 import { User } from "./User";
 
@@ -7,9 +7,9 @@ export class Config {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => User)
-  user: User;
+  @OneToOne(() => User, user => user.config, { eager: true })
+  user: Relation<User>;
 
-  @OneToMany(() => Page, (page) => page.config, { cascade: true, eager: true })
+  @Column('json')
   pages: Page[];
 }

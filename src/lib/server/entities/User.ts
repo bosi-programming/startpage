@@ -1,7 +1,5 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, type Relation } from "typeorm";
 import { Config } from "./Config";
-import { Page } from "./Page";
-import { SitesColumn } from "./Column";
 
 @Entity()
 export class User {
@@ -14,15 +12,11 @@ export class User {
   @Column('text', { nullable: false })
   password: string;
 
-  @OneToOne(() => Config)
+  @OneToOne(() => Config, (config) => config.user, { cascade: true })
   @JoinColumn()
-  config?: Config;
+  config?: Relation<Config>;
 
-  @OneToMany(() => Page, (page) => page.user, { cascade: true })
-  pages?: Page[];
-
-  @OneToMany(() => SitesColumn, (column) => column.user, { cascade: true })
-  columns?: SitesColumn[];
+  configId?: number;
 }
 
 

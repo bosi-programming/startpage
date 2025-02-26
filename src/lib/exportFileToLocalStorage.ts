@@ -1,12 +1,12 @@
 import { updateSites } from "@/stores/sites";
 
-export const exportFileToLocalStorage = (event: Event, localStorageLocation: string) => {
+export const exportFileToLocalStorage = async (event: Event, localStorageLocation: string) => {
   const element = event.currentTarget as HTMLInputElement;
   const files: FileList | null = element.files;
   if (files && files.length > 0) {
     const file = files[0];
     const reader = new FileReader();
-    reader.addEventListener("load", (readerEvent) => {
+    reader.addEventListener("load", async (readerEvent) => {
       const newMenus = readerEvent?.target?.result;
       if (newMenus && typeof newMenus === 'string') {
         try {
@@ -17,6 +17,13 @@ export const exportFileToLocalStorage = (event: Event, localStorageLocation: str
         }
         localStorage.removeItem(localStorageLocation);
         localStorage.setItem(localStorageLocation, newMenus);
+        await fetch('/api/config', {
+          method: 'POST',
+          body: newMenus,
+          headers: {
+            'content-type': 'application/json'
+          }
+        });
         updateSites(newMenus);
       }
     });

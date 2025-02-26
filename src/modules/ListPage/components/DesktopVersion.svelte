@@ -16,7 +16,7 @@
 </script>
 
 <Search />
-<div class="lg:flex lg:justify-evenly h-full">
+<div class="h-full lg:flex lg:justify-evenly">
   {#if hasPages}
     {#each config.allSites.pages[currentPage].sitesColumns as menu}
       <Column column={menu} />

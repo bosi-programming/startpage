@@ -6,13 +6,13 @@ import { configModel } from "../models/Config";
 
 export async function saveUserConfig(cookies: Cookies, configFromFE: Omit<Config, 'user' | 'id'>, configId?: number): Promise<[{ errorCode: number, errorMessage: string } | null, Config | null]> {
   const userId = getUserIdFromCookies(cookies);
-  const [userError, user] = await userModel.getById(userId, userId);
+  const [userError, user] = await userModel.getById(userId);
   if (userError) {
     return [userError, null]
   }
 
   if (configId) {
-    const [configError, updatedConfig] = await configModel.put({ ...configFromFE, id: configId, user }, user.id)
+    const [configError, updatedConfig] = await configModel.put({ ...configFromFE, id: configId, user })
     if (configError) {
       return [configError, null]
     }
