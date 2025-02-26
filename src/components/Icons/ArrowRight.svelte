@@ -11,7 +11,7 @@
 >
   <path
     d="M242.16 97.1599L345 200L242.16 302.84"
-    stroke="#191919"
+    stroke="currentColor"
     stroke-width="12"
     stroke-miterlimit="10"
     stroke-linecap="round"
@@ -19,7 +19,7 @@
   />
   <path
     d="M345 200L55 200"
-    stroke="#191919"
+    stroke="currentColor"
     stroke-width="12"
     stroke-miterlimit="10"
     stroke-linecap="round"
