@@ -43,8 +43,10 @@
     <Button
       action="success"
       className="size-fit mx-auto"
-      onclick={(e: Event) => pushSitesToLocalStorage(e, config.allSites.pages)}
-      >Submit</Button
+      onclick={(e: Event) => {
+        e.preventDefault();
+        pushSitesToLocalStorage(config.allSites);
+      }}>Submit</Button
     >
   </div>
 </div>
@@ -60,9 +62,9 @@
     type="file"
     id="import"
     accept=".json"
-    onchange={(e: Event) => { 
-      pushFileToLocalStorage(e)
-      goto('/')
+    onchange={(e: Event) => {
+      pushFileToLocalStorage(e);
+      goto('/');
     }}
   />
 </div>

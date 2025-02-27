@@ -7,9 +7,11 @@
   import ArrowLeft from '@/components/Icons/ArrowLeft.svelte';
   import ArrowRight from '@/components/Icons/ArrowRight.svelte';
 
-  const hasPages = config.allSites?.pages && config.allSites.pages.length > 0;
-  const pages = hasPages ? config.allSites.pages : [];
-  const totalNumberOfPages = pages.length;
+  const hasPages = $derived(
+    config.allSites?.pages && config.allSites.pages.length > 0,
+  );
+  const pages = $derived(hasPages ? config.allSites.pages : []);
+  const totalNumberOfPages = $derived(pages.length);
   let currentPage = $state(0);
   const shouldShowPreviousBtn = $derived(currentPage > 0);
   const shouldShowNextBtn = $derived(currentPage < totalNumberOfPages - 1);

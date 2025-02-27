@@ -17,7 +17,7 @@ export class TypeOrm {
         database: "database",
         entities: [User, Config],
         synchronize: true,
-        logging: false,
+        logging: true,
       })
         .initialize()
         .then((fulfilled) => {

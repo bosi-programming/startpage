@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, type Relation } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Config } from "./Config";
 
 @Entity()
@@ -12,9 +12,9 @@ export class User {
   @Column('text', { nullable: false })
   password: string;
 
-  @OneToOne(() => Config, (config) => config.user, { cascade: true })
+  @OneToOne(() => Config, (config) => config.user, { cascade: true, eager: true })
   @JoinColumn()
-  config?: Relation<Config>;
+  config?: Config;
 
   configId?: number;
 }

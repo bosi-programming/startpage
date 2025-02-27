@@ -35,10 +35,11 @@ export class BaseModel<T extends ObjectLiteral> {
       if (!entity) {
         return [{ errorCode: 400, errorMessage: "Entity not found" }, null];
       }
-      await this.repository.update({ id: props.id }, props)
+      await this.repository.save(props)
       const newEntity = await this.repository.findOneBy({ id: props.id })
       return [null, newEntity];
-    } catch {
+    } catch (e) {
+      console.error(e)
       return [{ errorCode: 500, errorMessage: "Server error" }, null];
     }
   }

@@ -16,7 +16,7 @@ export const exportFileToLocalStorage = async (event: Event, localStorageLocatio
           return;
         }
         localStorage.removeItem(localStorageLocation);
-        localStorage.setItem(localStorageLocation, newMenus);
+        localStorage.setItem(localStorageLocation, `${newMenus.trim().slice(0, -1)}, "updatedAt": ${new Date().getTime()} }`);
         await fetch('/api/config', {
           method: 'POST',
           body: newMenus,

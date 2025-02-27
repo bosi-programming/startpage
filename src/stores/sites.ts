@@ -22,7 +22,7 @@ export type TColumn = {
 export const sites = writable(allSites);
 
 export function updateSites(newSites: string) {
-  sites.update(() => JSON.parse(newSites));
+  sites.update(() => ({...JSON.parse(newSites), updatedAt: new Date().getTime()}));
 }
 
 export function searchSites(text: string) {

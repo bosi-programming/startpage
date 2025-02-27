@@ -10,5 +10,5 @@ export const load: PageServerLoad = async ({ cookies }): LoadAction => {
   if (userError) {
     return error(userError.errorCode, { message: userError.errorMessage })
   }
-  return userConfig as Config;
+  return {...userConfig} as Config;
 };

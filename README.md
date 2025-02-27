@@ -8,9 +8,9 @@
         - [x] Criar função de save config no BE
         - [x] Criar função de save config no FE
         - [x] Chamar o save config no FE no submit
-- [ ] Usar Config salva no BE no FE
-    - [ ] Pegar a config no BE
-    - [ ] Comparar com a config no FE e atualizar ou o BE ou o FE
+- [x] Usar Config salva no BE no FE
+    - [x] Pegar a config no BE
+    - [x] Comparar com a config no FE e atualizar ou o BE ou o FE
 - [x] Adicionar suporte a multipage
     - [x] Adicionar página de config (config de colunas por páginas)
     - [x] Adicionar suport a config multipage no FE sem mudar design

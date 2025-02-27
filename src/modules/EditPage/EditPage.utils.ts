@@ -1,8 +1,7 @@
 import { exportFileToLocalStorage } from '$lib/exportFileToLocalStorage.js';
-import type { TColumn } from '@/stores/sites';
+import type { TPage } from '@/stores/sites';
 
-export const pushSitesToLocalStorage = (e: Event, allSites: TColumn[]) => {
-  e.preventDefault();
+export const pushSitesToLocalStorage = (allSites: {pages: TPage[], updatedAt?: number}) => {
   localStorage.removeItem('sites');
   localStorage.setItem('sites', JSON.stringify(allSites));
 };
