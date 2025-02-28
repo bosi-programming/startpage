@@ -7,10 +7,6 @@
   import { browser } from '$app/environment';
 
   let { data: configFromBE }: PageProps = $props();
-  console.log(
-    configFromBE,
-    config?.allSites?.updatedAt < (configFromBE?.updatedAt || 0),
-  );
   if (
     !config.allSites?.updatedAt ||
     config.allSites.updatedAt < (configFromBE?.updatedAt || 0)

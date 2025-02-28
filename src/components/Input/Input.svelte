@@ -1,17 +1,20 @@
 <script lang="ts">
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
-	const {
+	let {
 		placeholder,
+		value = $bindable(),
 		...rest
 	}: {
 		placeholder?: string;
+		value?: string;
 		className?: string;
 	} & HTMLInputAttributes = $props();
 </script>
 
 <input
 	aria-label={placeholder}
+	bind:value={value}
 	{placeholder}
 	type="text"
 	{...rest}
