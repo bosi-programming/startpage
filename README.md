@@ -25,3 +25,4 @@
 - [ ] Por site num docker
 - [ ] Melhorar return types dos Models
 - [ ] Melhorar editor de links
+- [ ] Adicionar favicon de suricate
