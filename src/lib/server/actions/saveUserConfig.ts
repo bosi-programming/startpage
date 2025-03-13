@@ -26,9 +26,10 @@ export async function saveUserConfig(cookies: Cookies, configFromFE: Omit<Config
     return [null, updatedConfig || null]
   }
 
-  const [configError, newConfig] = await configModel.create({ ...configFromFE, updatedAt: new Date().getTime(), userId: user.id, user })
-  if (configError) {
-    return [configError, null]
+  const newConfig = configModel.repository.create({ ...configFromFE, updatedAt: new Date().getTime(), userId: user.id, user })
+  const [userSaveError] = await userModel.put({ ...user, config: newConfig, configId: newConfig.id });
+  if (userSaveError) {
+    return [userSaveError, null]
   }
   return [null, newConfig || null]
 }

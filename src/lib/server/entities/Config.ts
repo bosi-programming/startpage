@@ -7,7 +7,7 @@ export class Config {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => User, user => user.config, { cascade: ['update'] })
+  @OneToOne(() => User, user => user.config, { cascade: ['update', 'insert'] })
   user: User;
 
   @Column('integer')

@@ -13,10 +13,10 @@ export const handle: Handle = async ({ event, resolve }) => {
     return await resolve(event)
   }
   const userId = getUserIdFromCookies(event.cookies);
-  const [userError] = await userModel.getById(userId, userId);
+  const [userError] = await userModel.getById(userId);
 
   if (userError) {
-    event.cookies.delete("session", {path: "/"})
+    event.cookies.delete("session", { path: "/" })
     redirect(400, '/login')
   }
 

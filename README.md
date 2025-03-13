@@ -17,6 +17,9 @@
     - [x] Adicionar suport a multipage no FE
         - [x] Adicionar botões de Next e Previous na versão desktop
         - [x] Adicionar botões de Next e Previous na versão mobile
+- [ ] Acertar busca do site
+- [ ] Por botão de logoff
+- [ ] Por site num docker
 - [ ] Melhorar return types dos Models
 - [ ] Melhorar editor de links
 - [ ] Adicionar Zod nos forms

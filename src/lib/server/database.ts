@@ -34,7 +34,4 @@ export class TypeOrm {
 }
 
 const db = await TypeOrm.getDb()
-console.log(db)
 export const userRepository = db?.getRepository(User)
-const users = await userRepository?.find()
-console.log(users)

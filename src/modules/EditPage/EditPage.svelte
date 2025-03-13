@@ -62,8 +62,8 @@
     type="file"
     id="import"
     accept=".json"
-    onchange={(e: Event) => {
-      pushFileToLocalStorage(e);
+    onchange={async (e: Event) => {
+      await pushFileToLocalStorage(e);
       goto('/');
     }}
   />
