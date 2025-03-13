@@ -21,8 +21,8 @@
     - [x] Adicionar Zod no form de sign in
     - [x] Adicionar Zod no form de register
 - [x] Acertar busca do site
+- [x] Adicionar favicon de suricate
 - [ ] Por botão de logoff
 - [ ] Por site num docker
 - [ ] Melhorar return types dos Models
 - [ ] Melhorar editor de links
-- [ ] Adicionar favicon de suricate
