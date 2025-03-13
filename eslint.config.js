@@ -16,19 +16,18 @@ export default ts.config(
   ...svelte.configs['flat/prettier'],
   {
     languageOptions: {
-	  globals: {
-	    ...globals.browser,
-	    ...globals.node
-	  }
-	}
+      globals: {
+        ...globals.browser,
+        ...globals.node
+      }
+    }
   },
   {
-    files: ["**/*.svelte"],
-
+    files: ["**/*.svelte", "**/*.ts"],
     languageOptions: {
-	  parserOptions: {
-	    parser: ts.parser
-	  }
-	}
+      parserOptions: {
+        parser: ts.parser
+      }
+    }
   }
 );

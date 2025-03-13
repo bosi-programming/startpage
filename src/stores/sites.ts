@@ -22,18 +22,32 @@ export type TColumn = {
 export const sites = writable(allSites);
 
 export function updateSites(newSites: string) {
-  sites.update(() => ({...JSON.parse(newSites), updatedAt: new Date().getTime()}));
+  sites.update(() => ({ ...JSON.parse(newSites), updatedAt: new Date().getTime() }));
 }
 
 export function searchSites(text: string) {
-  let newSites = allSites.map((column: TColumn) => filterSitesByName(text, column));
-  // Filter empty columns
-  newSites = newSites.filter(
-    (column: TColumn) =>
-      (column.sites && column.sites.length !== 0) ||
-      column.subColumns?.length !== 0
-  );
-  sites.update(() => newSites);
+  sites.update(() => allSites);
+  const config = { allSites: { pages: [] } };
+  sites.subscribe((value) => {
+    config.allSites = value;
+  });
+  const newSites = config.allSites.pages.map((page: TPage) => ({ title: page.title, sitesColumns: page.sitesColumns.map((column: TColumn) => filterSitesByName(text, column)) }));
+  const newConfig = newSites.reduce((acc, page) => {
+    const newPage = {
+      ...page, sitesColumns: page.sitesColumns.filter(
+        (column) =>
+          (column.sites && column.sites.length !== 0) ||
+          column.subColumns?.length !== 0
+      )
+    }
+    if (newPage.sitesColumns.length > 0) {
+      return {
+        pages: [...acc.pages, newPage]
+      }
+    }
+    return acc
+  }, { pages: [] as TPage[] });
+  sites.update(() => newConfig);
 }
 
 function filterSitesByName(name: string, columns: TColumn) {

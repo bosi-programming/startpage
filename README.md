@@ -20,7 +20,7 @@
 - [x] Adicionar Zod nos forms
     - [x] Adicionar Zod no form de sign in
     - [x] Adicionar Zod no form de register
-- [ ] Acertar busca do site
+- [x] Acertar busca do site
 - [ ] Por botão de logoff
 - [ ] Por site num docker
 - [ ] Melhorar return types dos Models
