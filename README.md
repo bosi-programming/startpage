@@ -17,11 +17,11 @@
     - [x] Adicionar suport a multipage no FE
         - [x] Adicionar botões de Next e Previous na versão desktop
         - [x] Adicionar botões de Next e Previous na versão mobile
+- [x] Adicionar Zod nos forms
+    - [x] Adicionar Zod no form de sign in
+    - [x] Adicionar Zod no form de register
 - [ ] Acertar busca do site
 - [ ] Por botão de logoff
 - [ ] Por site num docker
 - [ ] Melhorar return types dos Models
 - [ ] Melhorar editor de links
-- [ ] Adicionar Zod nos forms
-    - [ ] Adicionar Zod no form de sign in
-    - [ ] Adicionar Zod no form de register
