@@ -1,43 +1,44 @@
 import colors from 'tailwindcss/colors';
 
-const { lightBlue, warmGray, trueGray, coolGray, blueGray, ...restColors } = colors;
+const { lightBlue, warmGray, trueGray, coolGray, blueGray, ...restColors } =
+  colors;
 
-const thulian = "#df6da9";
-const pink = "#e791bf";
-const green = "#1e2d2f";
+const thulian = '#df6da9';
+const pink = '#e791bf';
+const green = '#1e2d2f';
 
 export default {
   content: ['./index.html', './src/**/*.{html,js,svelte,ts}'],
   theme: {
     colors: {
       ...restColors,
-      transparent: "transparent",
-      current: "currentColor",
+      transparent: 'transparent',
+      current: 'currentColor',
       green,
-      emerald: "#0d9263",
+      emerald: '#0d9263',
       pink,
-      peach: "#f7dba7",
+      peach: '#f7dba7',
       thulian,
-      black: "#2f3032",
+      black: '#2f3032',
       gray: {
-        15: "#212529",
-        68: "#aeaeae",
-        93: "#eeeeee",
+        15: '#212529',
+        68: '#aeaeae',
+        93: '#eeeeee',
       },
-      white: "#ffffff",
-      "primary-on-light": "#246347",
-      "secondary-on-light": thulian,
-      "primary-on-dark": "#81d8d0",
-      "secondary-on-dark": pink,
-      success: "#14662d",
-      error: "#741427",
-      'error-on-dark': "#EF5350",
-      warning: "#c2530a",
-      info: "#3a5683",
-      "background-on-dark": green,
-      "background-on-light": "#fdf5e5",
-      "nav-background-on-dark": "#2E4649",
-      "nav-background-on-light": "#E8E1D3",
+      white: '#ffffff',
+      'primary-on-light': '#246347',
+      'secondary-on-light': thulian,
+      'primary-on-dark': '#81d8d0',
+      'secondary-on-dark': pink,
+      success: '#14662d',
+      error: '#741427',
+      'error-on-dark': '#EF5350',
+      warning: '#c2530a',
+      info: '#3a5683',
+      'background-on-dark': green,
+      'background-on-light': '#fdf5e5',
+      'nav-background-on-dark': '#2E4649',
+      'nav-background-on-light': '#E8E1D3',
     },
     fontSize: {
       body: 16,
@@ -57,7 +58,7 @@ export default {
         'paper-dark': '4px 4px 4px rgba(255, 255, 255, 0.25)',
       },
       screens: {
-        sm: "400px",
+        sm: '400px',
       },
       gridTemplateColumns: {
         'about-hero': '60% 40%',

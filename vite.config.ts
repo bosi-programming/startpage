@@ -1,4 +1,4 @@
-import { defineConfig } from "vitest/config";
+import { defineConfig } from 'vitest/config';
 import { sveltekit } from '@sveltejs/kit/vite';
 
 export default defineConfig({
@@ -8,6 +8,6 @@ export default defineConfig({
     external: ['reflect-metadata'],
   },
   test: {
-    include: ['src/**/*.{test,spec}.{js,ts}']
-  }
+    include: ['src/**/*.{test,spec}.{js,ts}'],
+  },
 });

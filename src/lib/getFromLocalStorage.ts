@@ -1,4 +1,4 @@
-import { browser } from "$app/environment";
+import { browser } from '$app/environment';
 
 export const getFromLocalStorage = (localStorageName: string) => {
   if (browser) {

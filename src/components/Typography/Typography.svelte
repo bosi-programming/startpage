@@ -30,13 +30,7 @@
 {/snippet}
 
 {#if component === 'a'}
-  <svelte:element 
-    this={component}
-    class={finalClassName}
-    {href}
-    {target}
-    {rel}
-  >
+  <svelte:element this={component} class={finalClassName} {href} {target} {rel}>
     {@render content()}
   </svelte:element>
 {:else}

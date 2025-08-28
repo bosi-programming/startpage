@@ -1,7 +1,7 @@
 import type { Snippet, SvelteComponent } from 'svelte';
 
 export interface ButtonProps {
-  onclick?: SvelteComponent['onclick']
+  onclick?: SvelteComponent['onclick'];
   children: Snippet | string;
   className?: string;
   color?: 'default' | 'primary' | 'secondary';
@@ -9,4 +9,3 @@ export interface ButtonProps {
   action?: 'error' | 'warning' | 'success' | 'info';
   type?: 'button' | 'submit' | 'reset';
 }
-

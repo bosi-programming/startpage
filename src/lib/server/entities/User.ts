@@ -1,5 +1,11 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Config } from "./Config";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Config } from './Config';
 
 @Entity()
 export class User {
@@ -12,11 +18,12 @@ export class User {
   @Column('text', { nullable: false })
   password: string;
 
-  @OneToOne(() => Config, (config) => config.user, { cascade: true, eager: true })
+  @OneToOne(() => Config, (config) => config.user, {
+    cascade: true,
+    eager: true,
+  })
   @JoinColumn()
   config?: Config;
 
   configId?: number;
 }
-
-

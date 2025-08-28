@@ -1,4 +1,4 @@
-import type { TypographyProps } from "./Typography";
+import type { TypographyProps } from './Typography';
 
 export function colorClass(color: TypographyProps['color']) {
   if (color === 'primary') {

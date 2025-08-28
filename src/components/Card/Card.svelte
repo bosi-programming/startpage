@@ -12,7 +12,7 @@
 </script>
 
 <div
-  class={`px-4 py-4 flex justify-between flex-col w-full rounded-md border-black border shadow-card dark:border-white dark:shadow-card-dark ${className ? className : ''}`}
+  class={`flex w-full flex-col justify-between rounded-md border border-black px-4 py-4 shadow-card dark:border-white dark:shadow-card-dark ${className ? className : ''}`}
 >
   <div class="mb-4">
     <Typography color="primary" size="h2" className="mb-2">{title}</Typography>
