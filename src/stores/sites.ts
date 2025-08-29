@@ -47,7 +47,7 @@ export function searchSites(text: string) {
         sitesColumns: page.sitesColumns.filter(
           (column) =>
             (column.sites && column.sites.length !== 0) ||
-            column.subColumns?.length !== 0,
+            (column.subColumns && column.subColumns.length !== 0),
         ),
       };
       if (newPage.sitesColumns.length > 0) {
@@ -59,6 +59,7 @@ export function searchSites(text: string) {
     },
     { pages: [] as TPage[] },
   );
+  console.log(newConfig);
   sites.update(() => newConfig);
 }
 
