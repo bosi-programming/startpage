@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Typography from '../Typography/Typography.svelte';
+  import { Typography } from 'bosi-design-system/svelte';
 
   interface Props {
     className: string;

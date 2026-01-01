@@ -3,13 +3,13 @@
   import { saveSites } from '$lib/saveSites';
   import { goto } from '$app/navigation';
   import { config } from '@/global/sites.svelte';
-  import Typography from '@/components/Typography/Typography.svelte';
   import Button from '@/components/Button/Button.svelte';
   import {
     pushFileToLocalStorage,
     pushSitesToLocalStorage,
   } from './EditPage.utils';
   import JsonEditor from './components/JsonEditor.svelte';
+  import { Typography } from 'bosi-design-system/svelte';
 
   let selectedBuilder = $state('form');
 

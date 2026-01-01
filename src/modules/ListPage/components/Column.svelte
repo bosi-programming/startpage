@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { TColumn } from '@/stores/sites';
   import Column from './Column.svelte';
-  import Typography from '@/components/Typography/Typography.svelte';
   import ItemSite from './ItemSite.svelte';
+  import { Typography } from 'bosi-design-system/svelte';
 
   interface Props {
     column: TColumn;

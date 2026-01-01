@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Typography from '@/components/Typography/Typography.svelte';
   import type { TSite } from '@/stores/sites';
+  import { Typography } from 'bosi-design-system/svelte';
 
   interface Props {
     site: TSite;

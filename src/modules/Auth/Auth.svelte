@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { Button, Input, Typography } from '@/components';
+  import { Button, Input } from '@/components';
+  import { Typography } from 'bosi-design-system/svelte';
   import type { ActionData as LoginActionData } from '../../routes/login/$types';
   import type { ActionData as RegisterActionData } from '../../routes/register/$types';
   import { goto } from '$app/navigation';
