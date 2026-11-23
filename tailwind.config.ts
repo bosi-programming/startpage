@@ -8,7 +8,11 @@ const pink = '#e791bf';
 const green = '#1e2d2f';
 
 export default {
-  content: ['./index.html', './src/**/*.{html,js,svelte,ts}'],
+  content: [
+    './index.html',
+    './src/**/*.{html,js,svelte,ts}',
+    './node_modules/bosi-design-system/svelte-dist/**/*.{js,svelte}',
+  ],
   theme: {
     colors: {
       ...restColors,
