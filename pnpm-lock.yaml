@@ -29,6 +29,9 @@ importers:
       sqlite3:
         specifier: 5.1.7
         version: 5.1.7
+      sveltekit-rate-limiter:
+        specifier: ^0.8.0
+        version: 0.8.0(@sveltejs/kit@2.16.1(@sveltejs/vite-plugin-svelte@5.0.1(svelte@5.46.1)(vite@6.2.1(@types/node@22.10.2)(jiti@1.21.7)(tsx@4.19.2)(yaml@2.8.2)))(svelte@5.46.1)(vite@6.2.1(@types/node@22.10.2)(jiti@1.21.7)(tsx@4.19.2)(yaml@2.8.2)))
       ts-pattern:
         specifier: 5.9.0
         version: 5.9.0
@@ -543,6 +546,10 @@ packages:
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
+    engines: {node: '>=12'}
+
+  '@isaacs/ttlcache@2.1.5':
+    resolution: {integrity: sha512-VwGZqqjAWPICTmxUZnbpEfO60LhPWzquik+bmyXGY7pYRn6diEvCI5i6Ca+J6o2y4vS73HrpuMTo2dOvUevH8w==}
     engines: {node: '>=12'}
 
   '@jridgewell/gen-mapping@0.3.13':
@@ -2594,6 +2601,11 @@ packages:
     resolution: {integrity: sha512-ynjfCHD3nP2el70kN5Pmg37sSi0EjOm9FgHYQdC4giWG/hzO3AatzXXJJgP305uIhGQxSufJLuYWtkY8uK/8RA==}
     engines: {node: '>=18'}
 
+  sveltekit-rate-limiter@0.8.0:
+    resolution: {integrity: sha512-kNF/jc7/3yuinNRR3ewrLm9uGea69WNnrl7Am7q41qrH8gKsaBdl+lEDMNvBOPlox5i83VPYZx7BGhn6KYnn1Q==}
+    peerDependencies:
+      '@sveltejs/kit': 2.x || >=3.0.0-next.25 <4.0.0
+
   symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
 
@@ -3259,6 +3271,8 @@ snapshots:
       strip-ansi-cjs: strip-ansi@6.0.1
       wrap-ansi: 8.1.0
       wrap-ansi-cjs: wrap-ansi@7.0.0
+
+  '@isaacs/ttlcache@2.1.5': {}
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
@@ -5361,6 +5375,11 @@ snapshots:
       locate-character: 3.0.0
       magic-string: 0.30.21
       zimmerframe: 1.1.4
+
+  sveltekit-rate-limiter@0.8.0(@sveltejs/kit@2.16.1(@sveltejs/vite-plugin-svelte@5.0.1(svelte@5.46.1)(vite@6.2.1(@types/node@22.10.2)(jiti@1.21.7)(tsx@4.19.2)(yaml@2.8.2)))(svelte@5.46.1)(vite@6.2.1(@types/node@22.10.2)(jiti@1.21.7)(tsx@4.19.2)(yaml@2.8.2))):
+    dependencies:
+      '@isaacs/ttlcache': 2.1.5
+      '@sveltejs/kit': 2.16.1(@sveltejs/vite-plugin-svelte@5.0.1(svelte@5.46.1)(vite@6.2.1(@types/node@22.10.2)(jiti@1.21.7)(tsx@4.19.2)(yaml@2.8.2)))(svelte@5.46.1)(vite@6.2.1(@types/node@22.10.2)(jiti@1.21.7)(tsx@4.19.2)(yaml@2.8.2))
 
   symbol-tree@3.2.4: {}
 

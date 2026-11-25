@@ -13,7 +13,10 @@ class User extends BaseModel<UserEntity> {
     const [, user] = await this.getUserByEmail(email);
     const hasUser = Boolean(user);
     if (hasUser) {
-      return [{ errorCode: 400, errorMessage: 'User already exist' }, null];
+      return [
+        { errorCode: 400, errorMessage: 'Invalid email or password' },
+        null,
+      ];
     }
     const passwordHash = await hashPassword(password);
     return await this.create({ email, password: passwordHash });
@@ -26,7 +29,10 @@ class User extends BaseModel<UserEntity> {
     try {
       const user = await this.repository.findOneBy({ email });
       if (!user) {
-        return [{ errorCode: 400, errorMessage: 'User not found' }, null];
+        return [
+          { errorCode: 400, errorMessage: 'Invalid email or password' },
+          null,
+        ];
       }
       return [null, user];
     } catch {
