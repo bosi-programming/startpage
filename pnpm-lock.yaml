@@ -29,9 +29,6 @@ importers:
       sqlite3:
         specifier: 5.1.7
         version: 5.1.7
-      sveltekit-rate-limiter:
-        specifier: ^0.8.0
-        version: 0.8.0(@sveltejs/kit@2.16.1(@sveltejs/vite-plugin-svelte@5.0.1(svelte@5.46.1)(vite@6.2.1(@types/node@22.10.2)(jiti@1.21.7)(tsx@4.19.2)(yaml@2.8.2)))(svelte@5.46.1)(vite@6.2.1(@types/node@22.10.2)(jiti@1.21.7)(tsx@4.19.2)(yaml@2.8.2)))
       ts-pattern:
         specifier: 5.9.0
         version: 5.9.0
@@ -117,6 +114,9 @@ importers:
       svelte-check:
         specifier: 4.1.1
         version: 4.1.1(picomatch@4.0.3)(svelte@5.46.1)(typescript@5.7.2)
+      sveltekit-rate-limiter:
+        specifier: 0.8.0
+        version: 0.8.0(@sveltejs/kit@2.16.1(@sveltejs/vite-plugin-svelte@5.0.1(svelte@5.46.1)(vite@6.2.1(@types/node@22.10.2)(jiti@1.21.7)(tsx@4.19.2)(yaml@2.8.2)))(svelte@5.46.1)(vite@6.2.1(@types/node@22.10.2)(jiti@1.21.7)(tsx@4.19.2)(yaml@2.8.2)))
       tailwindcss:
         specifier: 3.4.16
         version: 3.4.16
